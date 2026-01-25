@@ -371,32 +371,75 @@ During the interview with Jackie:
 
 ## Code Review Process
 
+**Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
+
+### Response Pattern
+
 When receiving code review feedback (e.g., from gemini-code-assist):
 
-### 1. Read and Analyze Feedback
+1. **READ** - Complete feedback without reacting
+2. **UNDERSTAND** - Restate requirement in own words (or ask if unclear)
+3. **VERIFY** - Check against codebase reality
+4. **EVALUATE** - Technically sound for THIS codebase?
+5. **RESPOND** - Technical acknowledgment or reasoned pushback
+6. **IMPLEMENT** - One item at a time, test each
+
+### Handling Unclear Feedback
+
+**If ANY item is unclear → STOP.** Do not implement anything yet. Ask for clarification on ALL unclear items before proceeding. Items may be related, and partial understanding leads to wrong implementation.
+
+### When to Push Back
+
+Push back when:
+- Suggestion breaks existing functionality
+- Reviewer lacks full context
+- Violates YAGNI (unused feature)
+- Technically incorrect for this stack
+- Conflicts with architectural decisions
+
+Use technical reasoning, not defensiveness. Reference working tests/code.
+
+### Forbidden Responses
+
+Never use performative agreement:
+- ❌ "You're absolutely right!"
+- ❌ "Great point!" / "Excellent feedback!"
+- ❌ "Thanks for catching that!"
+
+Instead, state the technical fix or pushback reasoning directly.
+
+### Proper Acknowledgment
+
+When feedback IS correct:
+- ✅ "Fixed. [Brief description of what changed]"
+- ✅ "Good catch - [specific issue]. Fixed in [location]."
+- ✅ Just fix it and show in the code
+
+### Workflow Steps
+
+#### 1. Fetch Comments
 
 ```bash
-# Get PR review comments
 gh api repos/davidshaevel-dot-com/dochound/pulls/<PR_NUMBER>/comments
 ```
 
-### 2. Evaluate Each Comment
+#### 2. Evaluate Each Comment
 
 For each piece of feedback:
-- **AGREE:** Make the fix
+- **AGREE:** Make the fix after verifying it doesn't break anything
 - **PARTIALLY AGREE:** Make the fix but note context
-- **DISAGREE:** Provide detailed explanation why (consider project scope, YAGNI, etc.)
+- **DISAGREE:** Provide detailed technical explanation why
+- **UNCLEAR:** Ask for clarification before implementing
 
-### 3. Make Fixes and Commit
+#### 3. Make Fixes and Commit
 
 ```bash
-# Make changes, then commit
-git add -A
+git add <specific-files>
 git commit -m "fix: address code review feedback from <reviewer>
 
-- Fixed X (agreed - valid concern)
-- Fixed Y (agreed - improves Z)
-- Acknowledged but not changing W (reason)
+- Fixed X (valid concern about Y)
+- Fixed Z (improves W)
+- Declined A (breaks B / YAGNI / reason)
 
 related-issues: TT-XXX
 
@@ -404,25 +447,32 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
 git push
 ```
 
-### 4. Reply to Review Comments
+#### 4. Reply to Review Comments
 
-Post inline replies to each review comment explaining:
+Reply **in the comment thread** (not top-level):
+
+```bash
+gh api repos/davidshaevel-dot-com/dochound/pulls/<PR>/comments/<COMMENT_ID>/replies \
+  -f body="Fixed in abc123. Changed X to Y."
+```
+
+Include:
 - What was fixed and how
-- Why something was not changed (if disagreeing)
-- Tag the reviewer with `@reviewer-name`
+- Technical reasoning if declining
+- Tag reviewer with `@reviewer-name`
 
-### 5. Post Summary Comment
+#### 5. Post Summary Comment
 
-Add a comment to the PR body summarizing all resolutions, tagging the reviewer:
+Add a summary comment to the PR:
 
 ```markdown
-@gemini-code-assist Thanks for the review! Here's how I've addressed the feedback:
+@gemini-code-assist Review addressed:
 
 | # | Feedback | Resolution |
 |---|----------|------------|
-| 1 | Issue X | Fixed in commit abc123 |
-| 2 | Issue Y | Fixed in commit abc123 |
-| 3 | Issue Z | Not changing - [reason] |
+| 1 | Issue X | Fixed in abc123 |
+| 2 | Issue Y | Fixed in abc123 |
+| 3 | Issue Z | Declined - [technical reason] |
 ```
 
 ## Related Resources
