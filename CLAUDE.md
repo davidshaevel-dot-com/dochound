@@ -222,6 +222,34 @@ git worktree add feature-branch -b feature-branch
 git worktree remove feature-branch
 ```
 
+### Worktree Cleanup - IMPORTANT
+
+**Before removing a worktree**, copy any gitignored files you need to the main worktree. These files are NOT tracked by git and will be lost when the worktree is deleted.
+
+```bash
+# Example: After merging a PR, before deleting the worktree
+# Copy .env files and other gitignored config from the feature worktree to main
+
+# From the feature worktree directory:
+cp packages/backend/.env ../main/packages/backend/.env
+cp packages/frontend/.env ../main/packages/frontend/.env  # if it exists
+
+# Or from the dochound root:
+cp tt-114-backend-setup/packages/backend/.env main/packages/backend/.env
+```
+
+**Common gitignored files to copy:**
+- `packages/backend/.env` - API keys, environment config
+- `packages/frontend/.env` - Frontend environment config
+- Any `node_modules/` - though these can be regenerated with `npm install`
+- `**/index-data/` - Vector store indexes (can be regenerated with `npm run index:all`)
+
+**Workflow:**
+1. Merge PR on GitHub
+2. Pull changes into main worktree: `cd main && git pull`
+3. Copy gitignored files from feature worktree to main
+4. Remove the worktree: `git worktree remove <worktree-name>`
+
 ## Local Development Setup
 
 ```bash
