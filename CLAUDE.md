@@ -39,6 +39,19 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
 related-issues: DH-XXX
 ```
 
+## Pull Request Convention
+
+**Merge Strategy:** Always use **Squash and Merge** for pull requests.
+
+- Keeps main branch history clean with one commit per feature/fix
+- PR title becomes the commit message
+- Individual commits are preserved in PR history for reference
+
+```bash
+# Merge PR with squash (preferred)
+gh pr merge <PR_NUMBER> --squash --delete-branch
+```
+
 ## Interview Context
 
 - **Target Company:** Circuit (Document AI for manufacturing)
