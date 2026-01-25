@@ -1,0 +1,63 @@
+David W. Shaevel
+[email]
+https://www.linkedin.com/in/dshaevel
+Austin, TX | [phone]
+
+Objective
+=========
+Full-Stack, DevOps, & Platform Engineer passionate about architecting scalable web applications and API infrastructure that serves thousands of users. Committed to driving engineering transformation initiatives, implementing robust platform solutions, and building developer-friendly systems that enable business growth and exceptional user experiences.
+
+Summary of Qualifications
+=========================
+- Developer Productivity: 20+ years of software development experience, with recent expertise in building enterprise developer productivity platforms using React, TypeScript, and Node.js. Proven ability to build and maintain tools and automation scripts to optimize developer workflows.
+- DevOps & Cloud Engineering: 7 years of enterprise cloud platform engineering experience, including Azure, GCP, AWS, and IBM Cloud. Extensive experience with Terraform, Ansible, and Docker for comprehensive infrastructure automation.
+- CI/CD Expertise: Proficient in designing, implementing, and maintaining CI/CD pipelines using GitHub Actions, Jenkins, and Azure Pipelines, and managing build agents for enterprise-scale operations.
+- Monitoring & Security: Experience implementing comprehensive monitoring and alerting systems (Grafana, Telegraf) and applying security best practices across cloud infrastructure and container deployments.
+- Technical Stack: Strong background in languages including JavaScript, TypeScript, Node.js, Java, Python, and Go with knowledge of microservices architecture and event-driven systems.
+
+Professional Experience
+=======================
+
+Senior Cloud Engineer, April 2023 – August 2025
+Zello - Platform Engineering - Austin, TX
+--------------------------------------------------------------------------------
+- Led platform engineering initiatives for Zello's enterprise-scale multi-cloud infrastructure spanning IBM Cloud, AWS, and Google Cloud Platform, managing disaster recovery systems, load balancers, security groups, and container orchestration.
+- Developed and maintained infrastructure-as-code solutions using Terraform and Ansible for automated provisioning of cloud resources, while establishing and maintaining CI/CD pipelines for critical microservices using GitHub Actions and Docker containers.
+- Implemented comprehensive monitoring and alerting systems with Grafana and Telegraf, establishing automated incident response workflows and ensuring 99.9% uptime for production services.
+- Orchestrated the strategic migration of critical services from IBM Cloud to Google Cloud Platform, including infrastructure provisioning automation and deployment pipeline optimization.
+- Established security infrastructure including SSL certificate automation, firewall configurations, and access control systems, implementing security best practices for container deployments.
+- Developed an MCP (Model Context Protocol) server in Go during a company hackathon that integrates with Zello's Message Vault (Elasticsearch) and Channel API (WebSocket) to provide AI-powered tools for message retrieval, channel management, and real-time communication.
+
+Staff Software Engineer, July 2021 – April 2023
+Walmart Developer Platforms - Developer Enablement Insights - Austin, TX
+--------------------------------------------------------------------------------
+- Built and maintained Team Productivity Dashboard components using React and TypeScript, including data visualization widgets for DORA metrics (epic lead time, development cycle time) and insight widget models with Elasticsearch integration.
+- Architected and developed comprehensive Status Page API infrastructure supporting 5+ critical Walmart-internal development tools (GitHub, Concord, Proximity, Looper, Gatekeeper), implementing incident tracking, metric monitoring, and real-time status updates with threshold-based alerting systems.
+- Implemented CI/CD health monitoring systems with automated cron-based processes, including metric collection and alerting for development pipeline health, performance tracking, and incident response automation.
+
+Staff Software Engineer, August 2020 – June 2021
+Walmart Global Tech Platform - PaaS Foundation - Austin, TX
+--------------------------------------------------------------------------------
+- Engineered and implemented a secure, repeatable process for the full lifecycle of centrally managed Azure and GCP PaaS resources within the Walmart-internal Developer Experience Portal (DX.io), enabling self-service infrastructure provisioning. Technologies used: Terraform, Java, ReactJS.
+- Designed and developed the Terraform provisioning scripts for Azure PaaS resources and established Terraform Cloud (TFE) workspace management for infrastructure as code.
+- Configured and managed Azure Monitor solutions for platform observability.
+- Implemented Azure Event Grid System Topics for blob storage event processing, designing event-driven architecture solutions that became the Walmart security-approved pattern for internal business applications.
+
+Staff Software Engineer, May 2018 – July 2020
+Walmart Global Business Services - Public Cloud - Austin, TX
+--------------------------------------------------------------------------------
+- Facilitated the adoption of Microsoft Azure across the Global Business Services organization by providing infrastructure design consultations.
+- Managed and administered the Azure DevOps instance for the entire Global Business Services organization, including the support of over 1900 users across 200 projects and 1800 build pipelines on 23 self-hosted build agents.
+- Led Azure DevOps training workshops and cloud adoption initiatives for 200+ developers.
+
+Earlier Career Experience
+=========================
+- Full-Stack / DevOps Engineer (2011-2018) at Motive (Alcatel-Lucent), Boundary, and BMC Software: Developed and maintained web applications and SaaS platforms, implemented features and APIs for service management systems, and supported a DevOps culture with frequent deployments, monitoring, and on-call responsibilities.
+- Java Developer (1999-2010) at Motive (Alcatel-Lucent), RenewData, MomentumSI, 360 Commerce, RealVue Simulation Technologies, SBC Laboratories, IBM, and Pavilion Technologies: Delivered enterprise applications and custom solutions using Java, Struts, Spring, Hibernate, EJBs, and Swing, optimizing performance and implementing build and test automation across diverse client projects.
+- For more details on earlier career experience, please visit my LinkedIn profile.
+
+Education
+=========
+The University of Texas at Austin
+- B.A. Mathematics
+- B.S. Computer Sciences

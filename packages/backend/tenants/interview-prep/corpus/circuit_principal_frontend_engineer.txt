@@ -1,0 +1,83 @@
+Principal Frontend Engineer (Austin, TX)
+========================================
+Austin, TX | Engineering | Full-time | On-site
+
+Source: https://jobs.lever.co/getcircuit/9153341f-bddf-4001-82c3-e65e7b97344d
+
+About Circuit
+-------------
+Circuit is building the world's first manufacturing-focused AI knowledge and workflow platform. Our mission is to help industrial and manufacturing enterprises transform how they sell, support, and collaborate with their dealer, distributor, and customer networks by turning complex product data and documentation into actionable, intelligent workflows, from partner enablement to CPQ to technical support, we're helping some of the world's most respected OEMs and industrial companies work smarter in the AI era.
+
+We're looking for a Principal Frontend Engineer to play a critical role in shaping the user experience of Circuit's core product and setting the technical foundation for our frontend architecture as we scale.
+
+The Role
+--------
+As a Principal Frontend Engineer at Circuit, you will be responsible for building high-quality, user-facing experiences in our core web application. You'll work closely with Product, Design, and Engineering peers to turn product direction into intuitive, performant, and accessible interfaces.
+
+This role is highly collaborative and hands-on. You'll contribute to frontend architecture and technical decision-making alongside other Principal-level engineers, help set quality and engineering standards through example, and mentor teammates through code reviews and shared problem-solving. You'll be expected to operate with autonomy, navigate ambiguity, and consistently deliver production-ready work that balances user experience, technical excellence, and business impact.
+
+Key Responsibilities
+--------------------
+- Design, build, and maintain core user-facing features in Circuit's web application.
+- Translate product requirements and design direction into polished, responsive, and accessible UI.
+- Contribute to frontend architecture, patterns, and technical decisions in collaboration with engineering peers.
+- Own features end-to-end, from implementation through testing, QA, and production release.
+- Write and maintain unit, integration, and end-to-end tests to ensure long-term reliability.
+- Participate actively in technical discussions, design reviews, and planning sessions.
+- Provide thoughtful code reviews and mentorship to support team-wide quality and growth.
+- Collaborate closely with Product and Design to clarify requirements, surface tradeoffs, and improve UX.
+- Identify and drive incremental improvements to performance, accessibility, developer experience, and frontend tooling.
+- Manage individual priorities and deadlines while maintaining a high standard of execution.
+
+Required Experience
+-------------------
+- 7+ years of professional frontend or full-stack engineering experience building and shipping production web applications.
+- Proven experience operating as a staff or principal-level individual contributor within a collaborative engineering team.
+- Experience collaborating closely with Product and Design partners to iterate on UX and balance technical and product tradeoffs.
+- Demonstrated ability to take loosely defined product requirements and turn them into high-quality, production-ready solutions.
+- A track record of improving code quality, developer experience, or frontend practices through example and influence rather than authority.
+- Comfort operating in ambiguous, fast-moving environments and managing individual priorities without heavy process or oversight.
+- Experience working with performance, reliability, and maintainability concerns in large or evolving frontend codebases.
+- Advanced proficiency in TypeScript, React, HTML, and CSS, with a track record of building complex, user-facing features.
+- Strong proficiency with CSS Modules and component-scoped styling approaches.
+- Experience with modern state management patterns using React Query for server state and Zustand for client state.
+- Strong experience designing and implementing responsive, accessible interfaces that follow modern UX and accessibility standards.
+- Experience with monorepo tooling and workflows (Turborepo, Nx, or similar) and managing dependencies across multiple frontend packages.
+- Hands-on experience writing and maintaining unit, integration, and end-to-end tests (e.g., Playwright, Vitest, React Testing Library).
+- Experience building and consuming RESTful APIs, with understanding of API design best practices and error handling patterns.
+- Hands-on experience with CI/CD pipelines, GitHub Actions, and deployment automation.
+- Experience with Docker, infrastructure tooling, and DevOps practices is highly valued.
+- Familiarity with modern development workflows and tooling, including Git, Linux-based environments, and containers.
+
+Bonus Points
+------------
+- Comfortable working across the full stack when needed—familiarity with backend concepts, databases, and API development is a plus.
+- Working knowledge of Go and experience with Go, Docker, Kubernetes and cloud platforms (AWS, GCP, Azure) is a plus.
+- Familiarity with AWS Cognito for authentication and identity management is a strong plus.
+
+Human Skills
+------------
+- Strong problem-solving abilities and comfort operating in ambiguity.
+- Excellent communication skills, with the ability to explain technical concepts to non-technical stakeholders.
+- Highly collaborative across Product, Design and Engineering.
+- High ownership mentality with a bias toward action and results.
+- Adaptable curious, and energized by the pace of an early-stage startup.
+- Low-ego collaborator who values feedback, iteration, and shared success.
+
+What We Offer
+-------------
+- High-caliber founding team of seasoned manufacturing and AI leaders
+- Build the technical backbone of our GTM motion and influence the product at an early stage
+- Partner directly with the CPO, CTO, and Sales leadership
+- Help create a category-defining platform transforming how manufacturers sell, support, and innovate
+- Competitive compensation, meaningful equity, and employer-paid benefits
+- Flexible PTO and access to the latest AI tools
+- A values-driven culture that rewards ownership, curiosity, and velocity
+
+Equal-Opportunity Employer
+--------------------------
+We are an equal-opportunity employer and value diversity at our company. We do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
+
+Who Should Apply
+----------------
+If you're a hands-on frontend engineer who loves turning complex systems into intuitive, scalable user experiences, and you want to help shape the product foundation of a breakthrough AI platform used by the world's leading manufacturers, we'd love to hear from you.

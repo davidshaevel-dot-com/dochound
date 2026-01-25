@@ -1,0 +1,207 @@
+David W. Shaevel
+4504 Elwood Rd.
+Austin, TX 78722
+512.565.8955
+dshaevel@yahoo.com
+
+Objective
+==========
+Senior Engineer passionate about building and maintaining infrastructure and developer productivity tools that enable engineering teams to deliver high-quality software efficiently and reliably. Committed to implementing CI/CD pipelines, infrastructure automation, and monitoring systems that support modern software development practices and improve developer experience.
+
+Full-Stack, DevOps, Cloud & Platform Engineer - Key Qualifications
+==================================================================
+- 10 years of Java development experience that includes designing, implementing, and testing various standalone and web-based applications, with deep knowledge of enterprise architecture patterns and microservices design.
+- 10 years of JavaScript development experience that includes implementing Test Driven Development for both front-end UIs and Node.js backend services, with recent expertise in React, TypeScript, and building enterprise developer productivity platforms.
+- 7 years of enterprise cloud platform engineering experience including Azure App Service Environment management, multi-cloud resource orchestration, and comprehensive infrastructure automation across Azure, AWS, GCP, and IBM Cloud.
+- Extensive experience with modern DevOps and infrastructure automation including Terraform for infrastructure as code, Ansible for configuration management, Docker for containerization, and automated CI/CD pipeline development supporting enterprise-scale operations.
+- Proven leadership in developer enablement and platform engineering including managing Azure DevOps organizations with 1900+ users, implementing comprehensive monitoring and alerting systems, and driving cloud adoption across large engineering organizations.
+- Advanced proficiency with AI-powered development tools including Cursor, Gemini, TmuxAI, ChatGPT, and GitHub Copilot, enabling rapid prototyping and development of complex systems in unfamiliar technologies.
+- Background includes UNIX system administration, enterprise cloud operations, and platform engineering leadership with excellent problem-solving skills and comprehensive understanding of modern software development and infrastructure management practices.
+
+Technical Skills
+================
+- Cloud & Infrastructure: Azure DevOps, Azure App Service Environment, AWS, Google Cloud Platform, IBM Cloud, Docker, Kubernetes, Terraform, Ansible.
+- DevOps & CI/CD: GitHub Actions, Jenkins, Maven, npm, Grunt, Gulp, Azure Pipelines, Build Agents, Grafana, Telegraf.
+- Programming Languages: Java, TypeScript, JavaScript, Python, Go, XML, XSL, XPath, VoiceXML, WML, HTML, CSS, UML, SQL, UNIX Shell Script.
+- Frontend Technologies: React, Angular, Backbone.js, jQuery UI, Swing, JSP, Velocity.
+- Backend & Databases: Node.js, Spring, Hibernate, Express, Cassandra, Consul, MySQL, Oracle, DB2, SQL Server, Elasticsearch.
+- AI & Development Tools: Cursor IDE and Background Agents, Gemini CLI and Code Assist, ChatGPT and Codex, TmuxAI, GitHub Copilot.
+
+Additional Skills
+=================
+- Agile/Scrum methodologies.
+- Technical documentation and training.
+- Cross-functional team collaboration.
+- Problem-solving and troubleshooting.
+- Performance optimization and tuning.
+- Security best practices implementation.
+- Disaster recovery planning and implementation.
+
+Professional Experience
+=======================
+
+Senior Cloud Engineer, April 2023 - August 2025
+Zello - Platform Engineering - Austin, TX
+--------------------------------------------------------------------------------
+- Led platform engineering initiatives for Zello's enterprise-scale multi-cloud infrastructure spanning IBM Cloud, AWS, and Google Cloud Platform, managing disaster recovery systems, load balancers, security groups, and container orchestration across production, staging, and development environments.
+- Developed and maintained infrastructure-as-code solutions using Terraform and Ansible for automated provisioning of cloud resources, while establishing and maintaining CI/CD pipelines for critical microservices including web console applications, login servers, and profile servers using GitHub Actions, Docker containers, and ECR repositories.
+- Implemented comprehensive monitoring and alerting systems with Grafana, Telegraf, and custom health checks, establishing automated incident response workflows and ensuring 99.9% uptime for production services.
+- Orchestrated the strategic migration of critical services from IBM Cloud to Google Cloud Platform, including infrastructure provisioning automation with Terraform, service account management, deployment pipeline optimization, and automated deployment processes for improved scalability, cost efficiency, and operational excellence.
+- Established security infrastructure including SSL certificate automation, firewall configurations, and access control systems, implementing security best practices for container deployments, coordinating incident response for security vulnerabilities, and managing network security configurations across all cloud environments.
+- Developed and presented an MCP (Model Context Protocol) server in Go during company hackathon using Cursor IDE, creating a dual-purpose service that integrates with Zello's Message Vault (Elasticsearch) and Channel API (WebSocket) to provide AI-powered tools for message retrieval, channel management, and real-time communication, with both MCP protocol support via stdio and HTTP REST endpoints for enhanced developer productivity.
+
+Staff Software Engineer, July 2021 - April 2023
+Walmart Developer Platforms - Developer Enablement Insights - Austin, TX
+--------------------------------------------------------------------------------
+- Built and maintained Team Productivity Dashboard components using React and TypeScript, including data visualization widgets, drill-down functionality, and integration with shared component libraries for consistent UI/UX across the engineering platform.
+- Architected and developed comprehensive Status Page API infrastructure for multiple development tools including GitHub, Concord, Proximity, Looper, and Gatekeeper, implementing incident tracking, metric monitoring, and real-time status updates with threshold-based alerting systems.
+- Implemented CI/CD health monitoring systems with automated cron-based processes, including metric collection, threshold management, and alerting for development pipeline health, performance tracking, and incident response automation.
+- Designed and developed insights widget models for engineering metrics including epic lead time tracking, development cycle time analysis, and team productivity measurements with Elasticsearch integration for scalable data processing and visualization.
+- Created comprehensive training materials and documentation for development tools including Concord, Looper, OneOps, and Hubble, producing video training series and technical documentation to enable developer adoption and platform utilization across engineering teams.
+
+Staff Software Engineer, August 2020 - June 2021
+Walmart Global Tech Platform - PaaS Foundation - Austin, TX
+--------------------------------------------------------------------------------
+- Engineered and implemented a secure, repeatable process for the full lifecycle (development, support, and maintenance) of centrally managed Azure and GCP PaaS resources, significantly enhancing operational efficiency and compliance. Technologies used: Terraform, Java, ReactJS.
+- Designed and developed the Terraform provisioning scripts for the following Azure PaaS resources: Azure Event Grid System Topics, Azure Monitor Diagnostic Settings.
+- Established Terraform Cloud (TFE) workspace management for infrastructure as code, including OAuth application configuration, service principal setup, and automated workspace creation processes to standardize infrastructure deployment practices.
+- Configured and managed Azure Monitor solutions for platform observability, implementing metric collection, alerting rules, and dashboard creation for comprehensive monitoring across infrastructure and application layers.
+- Implemented Azure Event Grid System Topics for blob storage event processing, designing event-driven architecture solutions and creating comprehensive documentation for development teams to integrate with the platform's messaging infrastructure.
+
+Staff Software Engineer, May 2018 - July 2020
+Walmart Global Business Services - Public Cloud - Austin, TX
+--------------------------------------------------------------------------------
+- Facilitated the adoption of Microsoft Azure across the Global Business Services organization by providing infrastructure design consultations to various engineering teams that are refactoring applications to use cloud native technologies.
+- Managed and administered the Azure DevOps instance for the entire Global Business Services organization, including the support of over 1900 users across 200 projects running over 1800 build pipelines on 20 self-hosted Linux build agents and 3 self-hosted Windows build agents.
+- Led Azure DevOps training workshops and cloud adoption initiatives, designing and delivering hands-on labs covering repository migration, CI/CD pipeline creation, and automated deployment to Azure App Service Environments for 50+ developers.
+- Implemented comprehensive build agent infrastructure using Docker containers, managing automated agent recycling, load balancing, and proxy configuration for secure CI/CD operations across multiple environments.
+- Developed and maintained Azure DevOps service connections and service principal management for secure authentication between development tools, managing access controls and role assignments across multiple Azure subscriptions.
+- Architected and managed enterprise-scale Azure App Service Environment (ASE) infrastructure, provisioning and configuring multiple App Service Plans across development, QA, staging, and production environments with automated deployment processes.
+
+Senior Product Developer, August 2015 - April 2018
+BMC Software - Austin, TX
+--------------------------------------------------------------------------------
+- Developed, maintained, and updated TrueSight Account Manager, a web application that manages user and account information for TrueSight Pulse and TrueSight Intelligence. Technologies used: AngularJS (1.x), Node.js, Express, Grunt, Cassandra, and Consul.
+- Developed, tested, and deployed components of the UI for TrueSight Intelligence, a SaaS-based analytics platform, using Angular (v4), TypeScript, Maven, Gulp, Ansible, Nginx, and Docker.
+- Maintained the codebase and fixed defects for TrueSight Pulse, formerly Boundary.
+- Contributed to the development and maintenance of the release tool chain for TrueSight Pulse and TrueSight Account Manager, including QA automation workflow enhancements using Jenkins, Protractor, Mocha, and Grunt.
+
+JavaScript / Node.js Developer, January 2015 - August 2015
+Boundary - Austin, TX
+--------------------------------------------------------------------------------
+- Developed, tested, and deployed APIs, 3rd-party integrations, and the front-end UI for Boundary's SaaS-based monitoring solution. Technologies used: Node.js, npm, Grunt, Express, Backbone.js, Marionette.js, Require.js, Jasmine, Mocha, MySQL, and git.
+- Participated in a DevOps culture that included deploying code to production servers hosted in AWS several times a week, monitoring the health of staging and production servers using the Boundary monitoring solution, and being on-call to respond to off-hours production issues.
+- Boundary was acquired by BMC Software Inc. and rebranded as TrueSight Pulse.
+
+Senior Software Developer, June 2008 - January 2015
+Motive, an Alcatel-Lucent Product Group - Austin, TX
+--------------------------------------------------------------------------------
+- Implemented and tested the Workflow Process Manager for the 5.2 release of Motive's Service Management Platform, a JavaScript-based web application that makes AJAX calls to Activiti's BPMN 2.0 REST APIs. Technologies used: Backbone.js, Marionette.js, Require.js, jQuery UI, Jasmine, and Sinon.js.
+- Implemented and tested new features for the 5.1 version of the Customer Service Console using JS Test Driver, JsMockito, JavaScript, and jQuery.
+- Implemented and tested APIs for Motive's Service Management Platform, a JEE application deployed to a WebLogic 10.3 application server and an Oracle 10g/11g database using Java, Spring, Hibernate, and JUnit.
+- Designed, implemented, tested, and supported versions 3.0 - 3.3 of the Customer Service Console, a Struts based web-application deployed to a WebLogic 10.3 application server and an Oracle 10g/11g database using Velocity, JavaScript, and jQuery UI.
+- Added new features and fixed defects for the 2009 R2 release of the Mobile Service Management Solution, a Struts based web-application deployed to a WebLogic 9.2 application server and an Oracle 10g database. UI technologies used: Velocity and JavaScript.
+
+Software Engineer III, November 2006 - June 2008
+Periscope Holdings - Austin, TX
+--------------------------------------------------------------------------------
+- Maintained the codebase and fixed defects for Periscope's flagship product, BuySpeed Online, a Struts 1.1 based web-application deployed to an Apache Tomcat 5.0.28 servlet container.
+- Assisted clients with the installation and configuration of BuySpeed Online, including the installation and configuration of Windows Server 2003 and Solaris 9/10 OS, Microsoft SQL Server 2000/2005 and Oracle 9i/10g database servers, Tomcat 4.1/5.0 application server, IIS 6 and Apache Web Server 2.2, as well as coding, configuring and installing software integrations with Microsoft SQL Server Reporting Services (SSRS).
+- Migrated build scripts from Ant to Maven, including creating and configuring a functional test phase using Jakarta Cactus and Cargo.
+
+Senior Java Developer, April 2006 - October 2006
+RenewData Corporation - Austin, TX
+--------------------------------------------------------------------------------
+- Developed a web-based application for searching large corporate datasets stored in an Oracle 10g database using Jakarta Struts, JSP, JavaScript, Spring, and Hibernate deployed to a JBoss 4.0.2 Application Server.
+- Improved the performance of searches against hundreds of Gigabytes of data which involved refactoring the application's persistence layer and working with DBA's to create and optimize SQL/HQL calls and schema views.
+
+Consultant - Senior Java Developer, January 2006 - March 2006
+MomentumSI / Armstrong World Industries, Inc. - Austin, TX
+--------------------------------------------------------------------------------
+- Developed a web-based user interface for Armstrong's Electronic Claims Processing application using Jakarta Struts, JSP, JavaScript, and Spring deployed to an SAP J2EE Engine 6.40 and an SAP R/3 backend.
+- Created HTML mockups of the user interface and worked with the client to finalize the application's design in each phase of development.
+
+Consultant - Senior Java Developer, September 2005 - December 2005
+MomentumSI / ISD Corporation - Austin, TX
+--------------------------------------------------------------------------------
+- Re-designed and developed the web-based user interface for ISD's Payment Authorization Switch application and satisfied the requirement of making the UI easy to modify and customize through the extensive use of CSS and custom tag libraries.  The WebUI also uses Jakarta Struts, JSP, JavaScript, Xdoclet, iBatis SQL Maps, and Spring deployed to a Jetty 5.1 HTTP Server and an Apache Derby 10.0 database.
+- Provided technical input to updates to the WebUI Design Document as well as assisted the Project Manager in the design of the new user interface.
+
+Consultant - Senior Java Developer, July 2005 - August 2005
+360 Commerce - Austin, TX
+--------------------------------------------------------------------------------
+- Developed an Audit Trail and Journaling subsystem for 360 Commerce's Inventory Management application using entity, session, and message-driven EJB's and a JMS queue deployed to a JBoss 3.2.1 application server and a MySQL 4.1 database.
+- Provided technical input to the creation of the Inventory Journaling Design Specification and the Inventory Management Software Architecture documents, assisted the Project Manager with task estimation and resource allocation, and acted as a liaison between a small development team in India and the Project Manager in Austin.
+
+Senior Java Developer, December 2003 - June 2005
+RealVue Simulation Technologies - Austin, TX
+--------------------------------------------------------------------------------
+- Developed custom training simulations using Java Swing, Java 2D, XML, XML Schemas, SwiXML, and Jython for the following clients:  Dell's EMC CX700 SAN servers, Sun's Solaris 10 certification exams, Kohler's Courage Series engines, and Hewlett Packard's ProLiant server blades for HP BladeSystems.
+- Provided technical input to the creation of Functional Design Specifications, assisted Project Managers with task estimation and resource allocation, and served as the lead developer in four simulation projects.
+- Contributed to the development of an XML Schema generation tool and several reusable simulation components using Java Beans, introspection, XML, and XSLT.
+- Received an excellence award for my development work and assistance with the customer relationship on the Kohler Courage Series engine simulation.
+
+Consultant - Java Developer, September 2003 - December 2003
+SBC Laboratories, Inc. - Austin, TX
+--------------------------------------------------------------------------------
+- Developed a web-based application to perform subjective listening tests for the SBC Speech Lab using Jakarta Struts, JSP, Servlets, VoiceXML, XML, XSLT, XPath, Apache Tomcat 4.0.6, VoiceGenie VoiceXML Gateway, and IBM's WebSphere Application Server 4.0.6.
+- Created a build script using Apache Ant that compiles, packages, and deploys an executable war file for the Subjective Listening Test (SLT) Application to Apache Tomcat, as well as generates Javadocs for the SLT project.
+- Developed an automated test suite using Apache Ant and Jakarta Cactus that performs in-container tests on the SLT Application and produces detailed test reports using JUnitReport and Jakarta's Log4J.
+
+Consultant - Java Developer, January 2003 - June 2003
+IBM - PartnerWorld for Software - Austin, TX
+--------------------------------------------------------------------------------
+- Developed a logging subsystem for the PartnerWorld for Software website using Java, Servlets, XML, and Lotus Domino Server R6.
+- Implemented a build system for the PartnerWorld for Software web team using CVS and Apache Ant.
+- Wrote the design specification and UML diagrams for the logging subsystem using Rational Rose.
+- Created a build script using Apache Ant that integrates with CVS and JUnit to compile, test, generate test results, create Javadocs, and package an executable jar file for the logging subsystem.
+- Began developing an integration application for Lotus Domino Server R6, WebSphere Application Server 5.0, and DB2 7.2 using Java, Servlets, XML, XSL, JDBC, DB2 XML Extender, and WebSphere Studio Application Developer.
+
+Consultant - Java Developer, June 2002 - November 2002
+Pavilion Technologies, Inc. - Austin, TX
+--------------------------------------------------------------------------------
+- Developed a charting application for a catalyst company using Java, Swing, XML, JDBC, and Microsoft SQL Server.
+- Worked directly with the Pavilion Project Management team to develop a design specification from the functional specifications given by the catalyst company using UML diagrams with Microsoft Visio.
+- Developed a functional verification test plan as well as unit tests for the charting application using JUnit.
+- Created a build script using Apache Ant that integrates with CVS and JUnit to compile, test, generate test results, create Javadocs, and package an executable jar file for the charting application.
+
+Member of Technical Staff, November 2000 - April 2002
+Interwoven - Austin, TX
+--------------------------------------------------------------------------------
+- Developed TeamTurbo for IBM, an integration application used with Interwoven's TeamSite Content Management Server and IBM's WebSphere Application Server, using JSP, Servlets, JavaScript, XML, XSL, XPath, Perl, and IBM's VisualAge for Java.
+- Helped create test environments for TeamTurbo for BEA using TeamSite Content Management Server on a Solaris 8 server and BEA WebLogic Application Server 6.1 on a Windows 2000 Server.
+- Worked with the Interwoven Business Development team to author 3 White Papers on integrating transcoding applications from IBM, AnyDevice, and AlterEgo with Interwoven's OpenChannel product.
+- Tested and integrated Interwoven's OpenChannel product with various transcoding applications from IBM, AnyDevice, and AlterEgo using XML, XSL, WML, and WAP emulators and toolkits from Openwave (formerly Phone.com) and Nokia.
+
+Java Developer, January 1999 - November 2000
+IBM - AIX IP Security Development - Austin, TX
+--------------------------------------------------------------------------------
+- Led a four-person team in the development of a front-end GUI for the VPN application in the base AIX operating system using Java Beans, JFC/Swing, WebSM CORBA interfaces, and Korn shell scripts.
+- Helped write the design specification and functional verification test plans for the VPN GUI component in AIX version 4.3.3 and 4.3.4.
+- Assisted in developing and testing the command-line interface to the AIX IP Security and Internet Key Exchange applications in the base AIX operating system using C, make, cscope, and CMVC.
+- Maintained the code repository in CMVC for the VPN GUI component.
+- Worked with AIX release management to develop makefiles and AIX build scripts for the VPN GUI component.
+- Received a development achievement award for outstanding contribution to the AIX 4.3.3 release.
+- Received CheckPoint Certified Security Administrator (CCSA) Certification.
+
+Technical Support Specialist, May 1997 - August 1998
+IBM - AIX Support Delivery - Austin, TX
+--------------------------------------------------------------------------------
+- Provided level 2 telephone support to IBM customers and field engineers for AIX systems and performance problems and general RS/6000 hardware configuration and cabling problems.
+- Developed and maintained the Systems and Performance team's internal web site using HTML, Korn shell scripts, C++, and Apache Web Server, which led to a decrease in time spent per call and increased the number of problems resolved on the first call.
+- Assisted in creating a training and education program for college interns and co-ops for the Austin AIX Support call center.
+- Received AIX V4.1 System Administration Certification.
+
+Certifications
+==============
+- IBM Certified Specialist - AIX V4.1 System Administration
+- CheckPoint Certified Security Administrator (CCSA)
+
+Education
+=========
+August 1992 - December 1998
+The University of Texas at Austin
+- B.A. Mathematics
+- B.S. Computer Sciences
+
+College of Natural Sciences Cooperative Education Program - Participant in a three-semester work tour at IBM during the fall 1997, summer 1997, and summer 1998 semesters.

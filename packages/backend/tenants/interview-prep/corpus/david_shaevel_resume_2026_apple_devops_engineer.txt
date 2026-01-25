@@ -1,0 +1,95 @@
+David W. Shaevel
+[email]
+https://www.linkedin.com/in/dshaevel
+Austin, TX | [phone]
+
+OBJECTIVE
+=========
+Senior DevOps Engineer with 7+ years of enterprise cloud platform engineering and 20+ years of software development experience, seeking to leverage multi-cloud infrastructure automation, CI/CD expertise, and GenAI/MCP tool integration experience to contribute to Apple's GSE Engineering Ops team building and managing tools that enable software releases in a fast-paced enterprise environment.
+
+SUMMARY OF QUALIFICATIONS
+==========================
+- DevOps & Infrastructure Automation: 7 years of enterprise cloud platform engineering across AWS, GCP, Azure, and IBM Cloud. Strong proficiency with Terraform, Ansible, and Docker for comprehensive infrastructure automation supporting enterprise-scale CI/CD operations.
+- GenAI & MCP Tool Integration: Developed MCP (Model Context Protocol) server in Go integrating Elasticsearch and WebSocket APIs to provide AI-powered DevOps tools. Extensive hands-on evaluation of AI models (Claude, Gemini, GPT) for development workflow optimization.
+- CI/CD & Release Engineering: Proven track record designing, implementing, and maintaining CI/CD pipelines using GitHub Actions, Jenkins, and Azure Pipelines. Managed build infrastructure supporting 1900+ users across 1800+ pipelines with 99.9% uptime.
+- Cloud Infrastructure: Hands-on AWS implementation (EC2, S3, ECR, IAM, Load Balancers, Security Groups) and GCP expertise (Compute Engine, Load Balancers, Cloud Storage, Service Accounts). Led strategic cloud migrations achieving improved scalability and cost efficiency.
+- Monitoring & Observability: Implemented comprehensive monitoring systems with Grafana, Telegraf, and custom health checks. Experience with logging infrastructure and metric collection for enterprise observability.
+- Programming & Scripting: 10+ years JavaScript/TypeScript and Node.js experience for tooling and automation development. Strong proficiency in Java, Shell scripting, Go, and Python.
+
+TECHNICAL SKILLS
+=================
+Cloud & Infrastructure:
+- AWS: EC2, S3, ECR, IAM, VPC, Load Balancers, Security Groups
+- GCP: Compute Engine, Load Balancers, Firewall Policies, Cloud Storage, Service Accounts
+- Azure: Azure DevOps, App Service Environment, Azure Monitor, Event Grid
+- IBM Cloud: Virtual Servers, Load Balancers, Security Infrastructure
+
+DevOps & Automation:
+- Infrastructure as Code: Terraform, Terraform Cloud (TFE), Ansible
+- CI/CD: GitHub Actions, Jenkins, Azure Pipelines, Maven, npm
+- Containerization: Docker (extensive - build agent containerization, Dockerfile optimization for CI/CD, multi-environment Docker Compose deployments), Container Registries (ECR, GCR, ACR), Kubernetes (foundational)
+- Monitoring: Grafana, Telegraf, Prometheus, Azure Monitor, Custom Health Checks
+
+Programming & Development:
+- Languages: JavaScript, TypeScript, Java, Shell Scripting, Go, Python
+- Backend: Node.js, Express, Spring
+- Databases: MySQL, PostgreSQL, MongoDB, Elasticsearch, Oracle, Cassandra
+
+AI & Development Tools:
+- MCP Development: Built MCP server in Go with Elasticsearch and WebSocket integration
+- AI Tool Evaluation: Claude (Sonnet 3.7, 4.5, Opus 4.5), Gemini (2.5-pro, 2.5-flash, 3.0-pro), GPT (4, 5)
+- AI-Powered Development: Cursor IDE, Claude Code, GitHub Copilot, Gemini CLI, GPT Codex
+
+PROFESSIONAL EXPERIENCE
+========================
+
+Senior Cloud Engineer, April 2023 - August 2025
+Zello - Platform Engineering - Austin, TX
+--------------------------------------------------------------------------------
+Multi-Cloud Infrastructure & Automation:
+- Led platform engineering for enterprise-scale multi-cloud infrastructure spanning IBM Cloud, AWS, and GCP, managing disaster recovery systems, load balancers, security groups, and Docker container deployments across production, staging, and development environments.
+- Developed and maintained infrastructure-as-code solutions using Terraform and Ansible for automated provisioning, establishing repeatable, secure deployment patterns across cloud environments.
+
+CI/CD & Release Engineering:
+- Established and maintained CI/CD pipelines for critical microservices including web console applications, login servers, and profile servers using GitHub Actions, Docker containers, and ECR repositories.
+- Orchestrated strategic migration of critical services from IBM Cloud to GCP, including infrastructure provisioning automation, deployment pipeline optimization, and automated deployment processes achieving improved scalability and cost efficiency.
+
+Monitoring, Security & Operations:
+- Implemented comprehensive monitoring and alerting systems with Grafana, Telegraf, and custom health checks, establishing automated incident response workflows and ensuring 99.9% uptime for production services.
+- Established security infrastructure including SSL certificate automation, firewall configurations, and access control systems, implementing security best practices for container deployments.
+
+GenAI/MCP Tool Integration:
+- Developed and presented MCP (Model Context Protocol) server in Go during company hackathon, creating a dual-purpose service integrating with Elasticsearch and WebSocket APIs to provide AI-powered tools for message retrieval, channel management, and real-time communication with both MCP protocol support and HTTP REST endpoints.
+
+Staff Software Engineer, July 2021 - April 2023
+Walmart Developer Platforms - Developer Enablement Insights - Austin, TX
+--------------------------------------------------------------------------------
+- Built and maintained Team Productivity Dashboard components using React and TypeScript, architecting data visualization widgets for DORA metrics (epic lead time, development cycle time) with Elasticsearch integration.
+- Architected and developed Status Page API infrastructure for 5+ critical development tools (GitHub, Concord, Proximity, Looper, Gatekeeper), implementing incident tracking, metric monitoring, and threshold-based alerting systems.
+- Implemented CI/CD health monitoring systems with automated processes for metric collection, threshold management, and alerting for development pipeline health and incident response automation.
+
+Staff Software Engineer, August 2020 - June 2021
+Walmart Global Tech Platform - PaaS Foundation - Austin, TX
+--------------------------------------------------------------------------------
+- Engineered secure, repeatable processes for full lifecycle management of centrally managed Azure and GCP PaaS resources, enabling self-service infrastructure provisioning at enterprise scale. Technologies: Terraform, Java, ReactJS.
+- Designed Terraform provisioning scripts for Azure PaaS resources and established Terraform Cloud (TFE) workspace management including OAuth configuration, service principal setup, and automated workspace creation.
+- Implemented Azure Event Grid System Topics for blob storage event processing, designing event-driven architecture solutions that became Walmart's security-approved pattern for internal applications.
+
+Staff Software Engineer, May 2018 - July 2020
+Walmart Global Business Services - Public Cloud - Austin, TX
+--------------------------------------------------------------------------------
+- Managed and administered Azure DevOps instance for Global Business Services organization, supporting 1900+ users across 200 projects running 1800+ build pipelines on 23 self-hosted build agents (20 Linux, 3 Windows).
+- Implemented comprehensive build agent infrastructure using Docker containers, managing automated agent recycling, load balancing, and proxy configuration for secure CI/CD operations.
+- Led Azure DevOps training workshops and cloud adoption initiatives for 200+ developers, designing hands-on labs covering repository migration, CI/CD pipeline creation, and automated deployment.
+
+EARLIER CAREER EXPERIENCE
+==========================
+- Senior Product Developer, BMC Software (2015-2018): Developed SaaS analytics platforms using Angular, TypeScript, Node.js, Docker, and Ansible. Contributed to release toolchain and QA automation using Jenkins.
+- JavaScript/Node.js Developer, Boundary (2015): Developed APIs and integrations for SaaS monitoring solution deployed to AWS. Participated in DevOps culture with frequent production deployments and on-call responsibilities.
+- Senior Software Developer, Motive/Alcatel-Lucent (2008-2015): Implemented web applications and APIs using Java, Spring, Hibernate, JavaScript, and jQuery deployed to WebLogic and Oracle.
+
+EDUCATION
+=========
+The University of Texas at Austin
+- B.A. Mathematics
+- B.S. Computer Sciences
