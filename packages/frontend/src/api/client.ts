@@ -44,7 +44,8 @@ export async function sendChatMessage(
   });
 
   if (!response.ok) {
-    throw new Error(`Chat request failed with status ${response.status}: ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`Chat request failed with status ${response.status}: ${errorText || response.statusText}`);
   }
 
   return response.json();
@@ -57,7 +58,8 @@ export async function getTenants(): Promise<Tenant[]> {
   const response = await fetch(`${API_BASE}/tenants`);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch tenants with status ${response.status}: ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`Failed to fetch tenants with status ${response.status}: ${errorText || response.statusText}`);
   }
 
   return response.json();
@@ -70,7 +72,8 @@ export async function getTenant(tenantId: string): Promise<Tenant> {
   const response = await fetch(`${API_BASE}/tenants/${tenantId}`);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch tenant with status ${response.status}: ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`Failed to fetch tenant with status ${response.status}: ${errorText || response.statusText}`);
   }
 
   return response.json();
