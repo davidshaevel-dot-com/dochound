@@ -449,21 +449,21 @@ git push
 
 #### 4. Reply to Review Comments
 
-Reply **in the comment thread** (not top-level):
+Reply **in the comment thread** (not top-level), tagging the reviewer so they're notified:
 
 ```bash
 gh api repos/davidshaevel-dot-com/dochound/pulls/<PR>/comments/<COMMENT_ID>/replies \
-  -f body="Fixed in abc123. Changed X to Y."
+  -f body="@gemini-code-assist Fixed in abc123. Changed X to Y."
 ```
 
 Include:
+- Tag reviewer with `@gemini-code-assist` at the start
 - What was fixed and how
 - Technical reasoning if declining
-- Tag reviewer with `@reviewer-name`
 
 #### 5. Post Summary Comment
 
-Add a summary comment to the PR:
+Add a summary comment to the PR, tagging the reviewer:
 
 ```markdown
 @gemini-code-assist Review addressed:
