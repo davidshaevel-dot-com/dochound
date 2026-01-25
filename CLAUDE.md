@@ -222,6 +222,34 @@ git worktree add feature-branch -b feature-branch
 git worktree remove feature-branch
 ```
 
+### Worktree Cleanup - IMPORTANT
+
+**Before removing a worktree**, copy any gitignored files you need to the main worktree. These files are NOT tracked by git and will be lost when the worktree is deleted.
+
+```bash
+# Example: After merging a PR, before deleting the worktree
+# Copy .env files and other gitignored config from the feature worktree to main
+
+# From the feature worktree directory:
+cp packages/backend/.env ../main/packages/backend/.env
+cp packages/frontend/.env ../main/packages/frontend/.env  # if it exists
+
+# Or from the dochound root:
+cp <worktree-name>/packages/backend/.env main/packages/backend/.env
+```
+
+**Common gitignored files to copy:**
+- `packages/backend/.env` - API keys, environment config
+- `packages/frontend/.env` - Frontend environment config
+- Any `node_modules/` - though these can be regenerated with `npm install`
+- `**/index-data/` - Vector store indexes (can be regenerated with `npm run index:all`)
+
+**Workflow:**
+1. Merge PR on GitHub
+2. Pull changes into main worktree: `cd main && git pull`
+3. Copy gitignored files from feature worktree to main
+4. Remove the worktree: `git worktree remove <worktree-name>`
+
 ## Local Development Setup
 
 ```bash
@@ -327,6 +355,62 @@ During the interview with Jackie:
 1. Show Tenant A (manufacturing-demo) processing technical documents (their domain)
 2. Switch to Tenant B (interview-prep) and ask DocHound about Circuit
 3. Explain: "This is the exact pattern I'd bring to your document AI platform"
+
+## Code Review Process
+
+When receiving code review feedback (e.g., from gemini-code-assist):
+
+### 1. Read and Analyze Feedback
+
+```bash
+# Get PR review comments
+gh api repos/davidshaevel-dot-com/dochound/pulls/<PR_NUMBER>/comments
+```
+
+### 2. Evaluate Each Comment
+
+For each piece of feedback:
+- **AGREE:** Make the fix
+- **PARTIALLY AGREE:** Make the fix but note context
+- **DISAGREE:** Provide detailed explanation why (consider project scope, YAGNI, etc.)
+
+### 3. Make Fixes and Commit
+
+```bash
+# Make changes, then commit
+git add -A
+git commit -m "fix: address code review feedback from <reviewer>
+
+- Fixed X (agreed - valid concern)
+- Fixed Y (agreed - improves Z)
+- Acknowledged but not changing W (reason)
+
+related-issues: TT-XXX
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
+git push
+```
+
+### 4. Reply to Review Comments
+
+Post inline replies to each review comment explaining:
+- What was fixed and how
+- Why something was not changed (if disagreeing)
+- Tag the reviewer with `@reviewer-name`
+
+### 5. Post Summary Comment
+
+Add a comment to the PR body summarizing all resolutions, tagging the reviewer:
+
+```markdown
+@gemini-code-assist Thanks for the review! Here's how I've addressed the feedback:
+
+| # | Feedback | Resolution |
+|---|----------|------------|
+| 1 | Issue X | Fixed in commit abc123 |
+| 2 | Issue Y | Fixed in commit abc123 |
+| 3 | Issue Z | Not changing - [reason] |
+```
 
 ## Related Resources
 
