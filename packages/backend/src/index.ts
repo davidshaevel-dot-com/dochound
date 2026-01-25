@@ -7,7 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+const corsOptions = process.env.CORS_ORIGIN
+  ? { origin: process.env.CORS_ORIGIN }
+  : {}; // Allow all origins in development when CORS_ORIGIN is not set
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
