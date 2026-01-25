@@ -25,34 +25,33 @@ The system synthesizes answers from tenant-specific documents with source citati
 - Node.js 18+
 - OpenAI API key
 
-### Setup
+### 1. Clone the Repository
 
 ```bash
-# Clone and install dependencies (monorepo - install at root)
 git clone <repo-url>
 cd dochound/main
-npm install           # Installs all workspace dependencies
-
-# Backend setup
-cp packages/backend/.env.example packages/backend/.env
-# Edit packages/backend/.env and add your OPENAI_API_KEY
-
-npm run index:all     # Index all tenant corpora (one-time)
-npm run dev           # Start all services
-
-# Or run backend only:
-cd packages/backend
-npm run index:all     # Index all tenant corpora (one-time)
-npm run dev           # Start backend on :3001
 ```
 
-**Frontend setup** (once frontend package exists):
+---
+
+### 2. Backend Setup
+
 ```bash
-cd packages/frontend
-npm run dev           # Start frontend on :5173
+cd packages/backend
+npm install
+
+# Configure environment
+cp .env.example .env
+# Edit .env and add your OPENAI_API_KEY
+
+# Index document corpora (one-time setup)
+npm run index:all
+
+# Start the backend server
+npm run dev
 ```
 
-### Verify Backend
+**Verify backend is running:**
 
 ```bash
 curl http://localhost:3001/health
@@ -63,6 +62,34 @@ Expected response:
 {"status":"ok","timestamp":"...","tenantsReady":["manufacturing-demo","interview-prep"]}
 ```
 
+**Test a chat query:**
+
+```bash
+curl -X POST http://localhost:3001/api/tenants/interview-prep/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "What is Ella?"}'
+```
+
+---
+
+### 3. Frontend Setup
+
+Open a new terminal:
+
+```bash
+cd packages/frontend
+npm install
+
+# Start the frontend dev server
+npm run dev
+```
+
+**Verify frontend is running:**
+
+Open http://localhost:5173 in your browser. You should see the DocHound interface with a tenant selector.
+
+---
+
 ### Environment Variables
 
 **Backend (`packages/backend/.env`):**
@@ -72,10 +99,12 @@ VECTOR_STORE=simple
 PORT=3001
 ```
 
-**Frontend (`packages/frontend/.env`):**
+**Frontend (`packages/frontend/.env`):** *(optional)*
 ```
 VITE_API_URL=http://localhost:3001
 ```
+
+Note: The frontend proxies `/api` requests to the backend, so `VITE_API_URL` is only needed if running the backend on a non-default port.
 
 ## Repository Structure
 
