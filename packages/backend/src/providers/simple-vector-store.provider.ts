@@ -90,12 +90,8 @@ export class SimpleVectorStoreProvider implements VectorStoreProvider {
       return;
     }
 
-    // VectorStoreIndex automatically persists when using storageContext
-    // But we can explicitly persist the storage context
-    const storageContext = this.index.storageContext;
-    await storageContext.docStore.persist(this.config.indexPath);
-    await storageContext.indexStore?.persist(this.config.indexPath);
-
+    // LlamaIndex with storageContextFromDefaults({ persistDir: ... }) auto-persists
+    // when documents are added, so this is just a confirmation log
     console.log(`[${this.config.tenantId}] Persisted index to ${this.config.indexPath}`);
   }
 
