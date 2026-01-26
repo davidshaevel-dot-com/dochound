@@ -1,10 +1,14 @@
 /**
  * Verification script for TT-116 tenant management
  */
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import { TenantService } from '../tenants/index.js';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 async function main() {
-  const service = new TenantService('./tenants');
+  const service = new TenantService(join(__dirname, '../../tenants'));
   await service.initialize();
 
   console.log('\n=== TT-116 Verification ===');

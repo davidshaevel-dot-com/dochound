@@ -21,11 +21,10 @@ function deriveDisplayName(id: string): string {
  * Features:
  * - Auto-discovers tenants from filesystem
  * - Supports optional tenant.json for display name overrides
- * - Lazy initialization of vector stores
+ * - Lazy initialization of vector stores (delegated to VectorStoreFactory)
  */
 export class TenantService {
   private tenants: Map<string, TenantConfig> = new Map();
-  private vectorStores: Map<string, VectorStoreProvider> = new Map();
   private initialized = false;
   private tenantsBasePath: string;
 
@@ -50,7 +49,8 @@ export class TenantService {
     const entries = await readdir(this.tenantsBasePath, { withFileTypes: true });
     const directories = entries.filter(entry => entry.isDirectory());
 
-    for (const dir of directories) {
+    // Process tenants in parallel
+    const tenantPromises = directories.map(async (dir) => {
       const tenantId = dir.name;
       const tenantPath = join(this.tenantsBasePath, tenantId);
       const corpusPath = join(tenantPath, 'corpus');
@@ -58,7 +58,7 @@ export class TenantService {
       // Skip directories without corpus folder
       if (!existsSync(corpusPath)) {
         console.warn(`[TenantService] Skipping ${tenantId}: no corpus/ directory`);
-        continue;
+        return null;
       }
 
       // Load optional tenant.json
@@ -84,8 +84,16 @@ export class TenantService {
         indexPath: join(tenantPath, 'index-data'),
       };
 
-      this.tenants.set(tenantId, tenantConfig);
-      console.log(`[TenantService] Discovered tenant: ${tenantId} ("${displayName}")`);
+      return tenantConfig;
+    });
+
+    const tenantResults = (await Promise.all(tenantPromises)).filter(
+      (t): t is TenantConfig => t !== null
+    );
+
+    for (const tenantConfig of tenantResults) {
+      this.tenants.set(tenantConfig.id, tenantConfig);
+      console.log(`[TenantService] Discovered tenant: ${tenantConfig.id} ("${tenantConfig.name}")`);
     }
 
     if (this.tenants.size === 0) {
@@ -111,28 +119,16 @@ export class TenantService {
   }
 
   /**
-   * Get or create vector store for a tenant (lazy initialization).
+   * Get vector store for a tenant.
+   * VectorStoreFactory handles caching of providers per tenant.
    */
   async getVectorStore(tenantId: string): Promise<VectorStoreProvider> {
-    // Check cache
-    const cached = this.vectorStores.get(tenantId);
-    if (cached) {
-      return cached;
-    }
-
     const tenant = this.tenants.get(tenantId);
     if (!tenant) {
       throw new Error(`Unknown tenant: ${tenantId}`);
     }
 
-    // Create and initialize vector store
-    const provider = await VectorStoreFactory.getProviderForTenant(
-      tenantId,
-      tenant.indexPath
-    );
-
-    this.vectorStores.set(tenantId, provider);
-    return provider;
+    return VectorStoreFactory.getProviderForTenant(tenantId, tenant.indexPath);
   }
 
   /**
