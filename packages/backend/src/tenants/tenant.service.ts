@@ -72,7 +72,7 @@ export class TenantService {
           if (config.name) {
             displayName = config.name;
           }
-        } catch (error) {
+        } catch (_error) {
           console.warn(`[TenantService] Invalid tenant.json for ${tenantId}, using defaults`);
         }
       }
