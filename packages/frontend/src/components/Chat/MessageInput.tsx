@@ -13,8 +13,7 @@ interface MessageInputProps {
 export function MessageInput({ onSubmit, disabled, error }: MessageInputProps) {
   const [input, setInput] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const submitMessage = () => {
     const trimmed = input.trim();
     if (trimmed && !disabled) {
       onSubmit(trimmed);
@@ -22,11 +21,16 @@ export function MessageInput({ onSubmit, disabled, error }: MessageInputProps) {
     }
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    submitMessage();
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     // Submit on Enter, newline on Shift+Enter
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit(e);
+      submitMessage();
     }
   };
 

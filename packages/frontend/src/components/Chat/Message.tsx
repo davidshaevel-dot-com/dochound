@@ -1,4 +1,3 @@
-// src/components/Chat/Message.tsx
 import { ChatMessage } from '@/api/client';
 import styles from './Message.module.css';
 

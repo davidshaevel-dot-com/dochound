@@ -1,4 +1,3 @@
-// src/stores/chatStore.ts
 import { create } from 'zustand';
 import { ChatMessage, Source } from '@/api/client';
 

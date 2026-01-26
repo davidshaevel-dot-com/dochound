@@ -1,8 +1,7 @@
-// src/components/Chat/MessageList.tsx
 import { useEffect, useRef } from 'react';
 import { ChatMessage } from '@/api/client';
 import { Message } from './Message';
-import styles from './ChatPanel.module.css';
+import styles from './MessageList.module.css';
 
 interface MessageListProps {
   messages: ChatMessage[];

@@ -5,11 +5,11 @@
 }
 
 .error {
-  color: #dc2626;
+  color: var(--color-text-error, #dc2626);
   font-size: 0.875rem;
   margin-bottom: var(--spacing-sm);
   padding: var(--spacing-sm);
-  background: #fef2f2;
+  background: var(--color-background-error, #fef2f2);
   border-radius: var(--radius-sm);
 }
 

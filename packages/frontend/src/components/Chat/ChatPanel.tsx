@@ -36,7 +36,7 @@ export function ChatPanel() {
   // Clear messages when tenant changes
   useEffect(() => {
     clearMessages();
-  }, [currentTenant, clearMessages]);
+  }, [currentTenant]);
 
   const handleSubmit = (message: string) => {
     addUserMessage(message);
