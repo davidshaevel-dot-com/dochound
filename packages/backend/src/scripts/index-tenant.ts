@@ -13,6 +13,7 @@ import { existsSync } from 'fs';
 import { join, extname } from 'path';
 import { Document, PDFReader } from 'llamaindex';
 import { encoding_for_model, TiktokenModel } from 'tiktoken';
+import { tenantService } from '../tenants/index.js';
 
 interface CLIArgs {
   tenant?: string;
@@ -114,6 +115,8 @@ const EMBEDDING_COSTS: Record<string, number> = {
   'text-embedding-ada-002': 0.10 / 1_000_000,
 };
 
+const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL ?? 'text-embedding-3-small';
+
 function countTokens(documents: Document[]): number {
   // Use cl100k_base encoding (used by text-embedding-3-* models)
   const enc = encoding_for_model('text-embedding-3-small' as TiktokenModel);
@@ -140,6 +143,50 @@ function formatCost(cost: number): string {
   return `$${cost.toFixed(2)}`;
 }
 
+function printDryRunReport(
+  tenantId: string,
+  stats: FileStats,
+  tokens: number,
+  model: string
+): void {
+  const cost = calculateCost(tokens, model);
+
+  console.log('[index] DRY RUN - No changes will be made');
+  console.log('[index] ════════════════════════════════════════════════════════');
+  console.log(`[index] Tenant: ${tenantId}`);
+  console.log('[index] ────────────────────────────────────────────────────────');
+  console.log('[index] Files found:');
+  console.log(`[index]   .md:  ${stats.md}`);
+  console.log(`[index]   .txt: ${stats.txt}`);
+  console.log(`[index]   .pdf: ${stats.pdf}`);
+  console.log(`[index]   Total: ${stats.total}`);
+  console.log('[index] ────────────────────────────────────────────────────────');
+  console.log('[index] Estimated:');
+  console.log(`[index]   Tokens: ~${tokens.toLocaleString()}`);
+  console.log(`[index]   Cost:   ${formatCost(cost)} (${model})`);
+  console.log('[index] ════════════════════════════════════════════════════════');
+  console.log('[index] Run without --dry-run to proceed with indexing.');
+}
+
+async function processTenant(tenantId: string, dryRun: boolean): Promise<void> {
+  const tenant = tenantService.getTenant(tenantId);
+  if (!tenant) {
+    const available = tenantService.getTenants().map((t) => t.id).join(', ');
+    throw new Error(`Tenant "${tenantId}" not found. Available: ${available}`);
+  }
+
+  const { documents, stats } = await readCorpusFiles(tenant.corpusPath);
+  const tokens = countTokens(documents);
+
+  if (dryRun) {
+    printDryRunReport(tenantId, stats, tokens, EMBEDDING_MODEL);
+    return;
+  }
+
+  // TODO: Implement actual indexing in next task
+  console.log(`[index] TODO: Index ${stats.total} documents for ${tenantId}`);
+}
+
 function printUsage(): void {
   console.log(`
 Usage:
@@ -163,8 +210,21 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  console.log('[index] Parsed args:', args);
-  console.log('[index] TODO: Implement indexing logic');
+  // Initialize tenant service
+  await tenantService.initialize();
+
+  if (args.all) {
+    const tenants = tenantService.getTenants();
+    if (tenants.length === 0) {
+      console.error('[index] ERROR: No tenants found');
+      process.exit(1);
+    }
+    for (const tenant of tenants) {
+      await processTenant(tenant.id, args.dryRun);
+    }
+  } else if (args.tenant) {
+    await processTenant(args.tenant, args.dryRun);
+  }
 }
 
 main().catch((error) => {
