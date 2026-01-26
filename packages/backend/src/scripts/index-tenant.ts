@@ -12,6 +12,7 @@ import { readdir, readFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join, extname } from 'path';
 import { Document, PDFReader } from 'llamaindex';
+import { encoding_for_model, TiktokenModel } from 'tiktoken';
 
 interface CLIArgs {
   tenant?: string;
@@ -105,6 +106,38 @@ async function readCorpusFiles(corpusPath: string): Promise<ReadResult> {
   }
 
   return { documents, stats };
+}
+
+const EMBEDDING_COSTS: Record<string, number> = {
+  'text-embedding-3-small': 0.02 / 1_000_000,
+  'text-embedding-3-large': 0.13 / 1_000_000,
+  'text-embedding-ada-002': 0.10 / 1_000_000,
+};
+
+function countTokens(documents: Document[]): number {
+  // Use cl100k_base encoding (used by text-embedding-3-* models)
+  const enc = encoding_for_model('text-embedding-3-small' as TiktokenModel);
+  let totalTokens = 0;
+
+  for (const doc of documents) {
+    const text = doc.getText();
+    totalTokens += enc.encode(text).length;
+  }
+
+  enc.free();
+  return totalTokens;
+}
+
+function calculateCost(tokens: number, model: string): number {
+  const costPerToken = EMBEDDING_COSTS[model] ?? EMBEDDING_COSTS['text-embedding-3-small'];
+  return tokens * costPerToken;
+}
+
+function formatCost(cost: number): string {
+  if (cost < 0.01) {
+    return `$${cost.toFixed(4)}`;
+  }
+  return `$${cost.toFixed(2)}`;
 }
 
 function printUsage(): void {
