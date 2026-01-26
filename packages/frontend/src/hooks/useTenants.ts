@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { getTenants, getTenant, Tenant } from '@/api/client';
+import { getTenants, getTenant } from '@/api/client';
 
 /**
  * Hook for fetching all tenants
  */
 export function useTenants() {
-  return useQuery<Tenant[]>({
+  return useQuery({
     queryKey: ['tenants'],
     queryFn: getTenants,
   });
@@ -15,7 +15,7 @@ export function useTenants() {
  * Hook for fetching a specific tenant
  */
 export function useTenant(tenantId: string) {
-  return useQuery<Tenant>({
+  return useQuery({
     queryKey: ['tenant', tenantId],
     queryFn: () => getTenant(tenantId),
     enabled: !!tenantId,
