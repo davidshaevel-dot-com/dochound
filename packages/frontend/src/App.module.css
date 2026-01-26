@@ -53,15 +53,7 @@
 
 .main {
   flex: 1;
-  padding: var(--spacing-xl);
-  background: var(--color-background-alt);
-}
-
-.main p {
-  text-align: center;
-  color: var(--color-text-muted);
-}
-
-.main strong {
-  color: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }

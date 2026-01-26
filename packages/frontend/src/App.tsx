@@ -1,5 +1,6 @@
 import { useTenantStore } from './stores/tenantStore';
 import { useTenants } from './hooks';
+import { ChatPanel } from './components/Chat';
 import styles from './App.module.css';
 
 // Fallback tenants when API is unavailable (graceful degradation)
@@ -42,8 +43,7 @@ function App() {
         </div>
       </header>
       <main className={styles.main}>
-        <p>Chat interface coming soon...</p>
-        <p>Current tenant: <strong>{currentTenant}</strong></p>
+        <ChatPanel />
       </main>
     </div>
   );
