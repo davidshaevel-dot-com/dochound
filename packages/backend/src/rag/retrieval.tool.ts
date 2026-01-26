@@ -36,10 +36,19 @@ export async function executeRetrieval(
   const vectorStore = await tenantService.getVectorStore(tenantId);
   const result = await vectorStore.query(query, topK);
 
-  return result.nodes.map((node, index) => ({
-    id: `${index + 1}`,
-    filename: (node.node.metadata?.filename as string) ?? 'unknown',
-    text: (node.node as { text?: string }).text ?? '',
-    score: node.score ?? 0,
-  }));
+  return result.nodes.map((node, index) => {
+    const metadata = node.node.metadata;
+    const filename =
+      typeof metadata?.filename === 'string' ? metadata.filename : 'unknown';
+    const nodeWithText = node.node as { text?: unknown };
+    const text =
+      typeof nodeWithText.text === 'string' ? nodeWithText.text : '';
+
+    return {
+      id: `${index + 1}`,
+      filename,
+      text,
+      score: node.score ?? 0,
+    };
+  });
 }

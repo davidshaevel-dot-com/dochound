@@ -17,6 +17,11 @@ import type { ChatRequest, ChatResponse } from './types.js';
 /** Model to use for chat completions (configurable via env var) */
 const MODEL = process.env.OPENAI_MODEL ?? 'gpt-4o-mini';
 
+// Fail fast if API key is missing
+if (!process.env.OPENAI_API_KEY) {
+  throw new Error('OPENAI_API_KEY environment variable is not set');
+}
+
 export class RAGService {
   private openai: OpenAI;
 
@@ -51,6 +56,10 @@ export class RAGService {
     // Extract query from tool call
     const toolCall = stage1Response.choices[0].message.tool_calls?.[0];
     if (!toolCall) {
+      console.error(
+        '[RAG] Model did not call retrieve_documents tool. Full response:',
+        JSON.stringify(stage1Response, null, 2)
+      );
       throw new Error('Model did not call retrieve_documents tool');
     }
 

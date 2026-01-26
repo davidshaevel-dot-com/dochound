@@ -134,7 +134,7 @@ export const retrieveDocumentsTool = {
 // prompts.ts
 
 export const STAGE1_SYSTEM_PROMPT = `You are a document retrieval assistant.
-When the user asks a question, you MUST call the retrieve_documents function.
+When the user asks a question, you MUST call the retrieve_documents function to search for relevant information.
 Do not attempt to answer from your own knowledge.`;
 
 export const STAGE2_SYSTEM_PROMPT = `You are a helpful assistant that answers questions based ONLY on the provided documents.
@@ -169,7 +169,7 @@ src/rag/
 | Scenario | Behavior |
 |----------|----------|
 | Invalid tenant | Throw error (caller handles 404) |
-| Missing tool call | Throw error (unexpected API issue) |
+| Missing tool call | Log full response, throw error (unexpected API issue) |
 | No search results | Continue to Stage 2 (LLM says "couldn't find info") |
 | OpenAI API errors | Let bubble up (caller handles 500) |
 
