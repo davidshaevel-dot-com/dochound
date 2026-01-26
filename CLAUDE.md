@@ -450,21 +450,25 @@ git push
 
 #### 4. Reply to Review Comments
 
-Reply **in the comment thread** (not top-level), tagging the reviewer so they're notified:
+Reply **in the comment thread** (not top-level):
+
+**IMPORTANT: Always start with `@gemini-code-assist` so they are notified of your response.**
 
 ```bash
 gh api repos/davidshaevel-dot-com/dochound/pulls/<PR>/comments/<COMMENT_ID>/replies \
-  -f body="@gemini-code-assist Fixed in abc123. Changed X to Y."
+  -f body="@gemini-code-assist Fixed. Changed X to Y."
 ```
 
-Include:
-- Tag reviewer with `@gemini-code-assist` at the start
+Every inline reply must include:
+- **`@gemini-code-assist` at the start** (required for notification)
 - What was fixed and how
 - Technical reasoning if declining
 
 #### 5. Post Summary Comment
 
-Add a summary comment to the PR, tagging the reviewer:
+Add a summary comment to the PR:
+
+**IMPORTANT: Always start with `@gemini-code-assist` so they are notified.**
 
 ```markdown
 @gemini-code-assist Review addressed:
