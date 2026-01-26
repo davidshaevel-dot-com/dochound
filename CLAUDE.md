@@ -48,8 +48,11 @@ related-issues: DH-XXX
 - Individual commits are preserved in PR history for reference
 
 ```bash
-# Merge PR with squash (preferred)
-gh pr merge <PR_NUMBER> --squash --delete-branch
+# Merge PR with squash
+gh pr merge <PR_NUMBER> --squash
+
+# Delete the remote branch (--delete-branch doesn't work with worktrees)
+git push origin --delete <branch-name>
 ```
 
 ## Interview Context
@@ -254,14 +257,14 @@ cp <worktree-name>/packages/backend/.env main/packages/backend/.env
 **Common gitignored files to copy:**
 - `packages/backend/.env` - API keys, environment config
 - `packages/frontend/.env` - Frontend environment config
-- Any `node_modules/` - though these can be regenerated with `npm install`
 - `**/index-data/` - Vector store indexes (can be regenerated with `npm run index:all`)
 
 **Workflow:**
-1. Merge PR on GitHub
+1. Merge PR: `gh pr merge <PR_NUMBER> --squash`
 2. Pull changes into main worktree: `cd main && git pull`
-3. Copy gitignored files from feature worktree to main
-4. Remove the worktree: `git worktree remove <worktree-name>`
+3. Delete remote branch: `git push origin --delete <branch-name>`
+4. Copy gitignored files from feature worktree to main
+5. Remove the worktree: `git worktree remove <worktree-name>`
 
 ## Local Development Setup
 
