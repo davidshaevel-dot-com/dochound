@@ -10,7 +10,8 @@
     "build": "tsc",
     "index": "tsx src/scripts/index-tenant.ts",
     "index:all": "tsx src/scripts/index-tenant.ts --all",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:tenants": "tsx src/scripts/verify-tenants.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",

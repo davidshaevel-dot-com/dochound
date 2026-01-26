@@ -269,8 +269,9 @@ cp <worktree-name>/packages/backend/.env main/packages/backend/.env
 # Terminal 1: Backend
 cd packages/backend
 npm install
-npm run index:all    # One-time: index all tenant corpora
-npm run dev          # Starts Express on :3001
+npm run verify:tenants  # Verify tenant discovery works
+npm run index:all       # One-time: index all tenant corpora
+npm run dev             # Starts Express on :3001
 
 # Terminal 2: Frontend
 cd packages/frontend
