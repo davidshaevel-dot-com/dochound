@@ -152,31 +152,6 @@ function formatCost(cost: number): string {
   return `$${cost.toFixed(2)}`;
 }
 
-function printDryRunReport(
-  tenantId: string,
-  stats: FileStats,
-  tokens: number,
-  model: string
-): void {
-  const cost = calculateCost(tokens, model);
-
-  console.log('[index] DRY RUN - No changes will be made');
-  console.log('[index] ════════════════════════════════════════════════════════');
-  console.log(`[index] Tenant: ${tenantId}`);
-  console.log('[index] ────────────────────────────────────────────────────────');
-  console.log('[index] Files found:');
-  console.log(`[index]   .md:  ${stats.md}`);
-  console.log(`[index]   .txt: ${stats.txt}`);
-  console.log(`[index]   .pdf: ${stats.pdf}`);
-  console.log(`[index]   Total: ${stats.total}`);
-  console.log('[index] ────────────────────────────────────────────────────────');
-  console.log('[index] Estimated:');
-  console.log(`[index]   Tokens: ~${tokens.toLocaleString()}`);
-  console.log(`[index]   Cost:   ${formatCost(cost)} (${model})`);
-  console.log('[index] ════════════════════════════════════════════════════════');
-  console.log('[index] Run without --dry-run to proceed with indexing.');
-}
-
 async function processTenant(tenantId: string, dryRun: boolean): Promise<void> {
   const tenant = tenantService.getTenant(tenantId);
   if (!tenant) {
