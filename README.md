@@ -44,6 +44,9 @@ npm install
 cp .env.example .env
 # Edit .env and add your OPENAI_API_KEY
 
+# Verify tenant discovery
+npm run verify:tenants
+
 # Index document corpora (one-time setup)
 npm run index:all
 

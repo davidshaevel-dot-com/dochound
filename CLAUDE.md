@@ -48,8 +48,11 @@ related-issues: DH-XXX
 - Individual commits are preserved in PR history for reference
 
 ```bash
-# Merge PR with squash (preferred)
-gh pr merge <PR_NUMBER> --squash --delete-branch
+# Merge PR with squash
+gh pr merge <PR_NUMBER> --squash
+
+# Delete the remote branch (--delete-branch doesn't work with worktrees)
+git push origin --delete <branch-name>
 ```
 
 ## Interview Context
@@ -254,14 +257,14 @@ cp <worktree-name>/packages/backend/.env main/packages/backend/.env
 **Common gitignored files to copy:**
 - `packages/backend/.env` - API keys, environment config
 - `packages/frontend/.env` - Frontend environment config
-- Any `node_modules/` - though these can be regenerated with `npm install`
 - `**/index-data/` - Vector store indexes (can be regenerated with `npm run index:all`)
 
 **Workflow:**
-1. Merge PR on GitHub
+1. Merge PR: `gh pr merge <PR_NUMBER> --squash`
 2. Pull changes into main worktree: `cd main && git pull`
-3. Copy gitignored files from feature worktree to main
-4. Remove the worktree: `git worktree remove <worktree-name>`
+3. Delete remote branch: `git push origin --delete <branch-name>`
+4. Copy gitignored files from feature worktree to main
+5. Remove the worktree: `git worktree remove <worktree-name>`
 
 ## Local Development Setup
 
@@ -269,8 +272,9 @@ cp <worktree-name>/packages/backend/.env main/packages/backend/.env
 # Terminal 1: Backend
 cd packages/backend
 npm install
-npm run index:all    # One-time: index all tenant corpora
-npm run dev          # Starts Express on :3001
+npm run verify:tenants  # Verify tenant discovery works
+npm run index:all       # One-time: index all tenant corpora
+npm run dev             # Starts Express on :3001
 
 # Terminal 2: Frontend
 cd packages/frontend
@@ -449,21 +453,25 @@ git push
 
 #### 4. Reply to Review Comments
 
-Reply **in the comment thread** (not top-level), tagging the reviewer so they're notified:
+Reply **in the comment thread** (not top-level):
+
+**IMPORTANT: Always start with `@gemini-code-assist` so they are notified of your response.**
 
 ```bash
 gh api repos/davidshaevel-dot-com/dochound/pulls/<PR>/comments/<COMMENT_ID>/replies \
-  -f body="@gemini-code-assist Fixed in abc123. Changed X to Y."
+  -f body="@gemini-code-assist Fixed. Changed X to Y."
 ```
 
-Include:
-- Tag reviewer with `@gemini-code-assist` at the start
+Every inline reply must include:
+- **`@gemini-code-assist` at the start** (required for notification)
 - What was fixed and how
 - Technical reasoning if declining
 
 #### 5. Post Summary Comment
 
-Add a summary comment to the PR, tagging the reviewer:
+Add a summary comment to the PR:
+
+**IMPORTANT: Always start with `@gemini-code-assist` so they are notified.**
 
 ```markdown
 @gemini-code-assist Review addressed:
