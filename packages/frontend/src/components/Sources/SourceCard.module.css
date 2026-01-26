@@ -1,0 +1,113 @@
+.card {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.card:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-background-alt);
+}
+
+.cardSelected {
+  border-color: var(--color-accent);
+  background-color: rgba(79, 195, 247, 0.08);
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.documentName {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.citation {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.scoreContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.scoreBar {
+  flex: 1;
+  height: 6px;
+  background-color: var(--color-background-alt);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.scoreFill {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.scoreText {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  min-width: 36px;
+  text-align: right;
+}
+
+.excerpt {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.excerptTruncated {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.expandButton {
+  background: none;
+  border: none;
+  padding: var(--spacing-xs) 0;
+  margin-top: var(--spacing-xs);
+  color: var(--color-accent);
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.expandButton:hover {
+  text-decoration: underline;
+}
+
+.expandButton:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
