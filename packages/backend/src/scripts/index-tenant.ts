@@ -11,9 +11,16 @@ import 'dotenv/config';
 import { readdir, readFile, rename, rm } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join, extname } from 'path';
-import { Document, PDFReader } from 'llamaindex';
+import {
+  Document,
+  PDFReader,
+  SentenceSplitter,
+  Settings,
+  OpenAIEmbedding,
+} from 'llamaindex';
 import { encoding_for_model, TiktokenModel } from 'tiktoken';
 import { tenantService } from '../tenants/index.js';
+import { VectorStoreFactory } from '../providers/index.js';
 
 interface CLIArgs {
   tenant?: string;
@@ -116,6 +123,8 @@ const EMBEDDING_COSTS: Record<string, number> = {
 };
 
 const EMBEDDING_MODEL = process.env.EMBEDDING_MODEL ?? 'text-embedding-3-small';
+const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE ?? '1024', 10);
+const CHUNK_OVERLAP = parseInt(process.env.CHUNK_OVERLAP ?? '20', 10);
 
 function countTokens(documents: Document[]): number {
   // Use cl100k_base encoding (used by text-embedding-3-* models)
@@ -175,16 +184,65 @@ async function processTenant(tenantId: string, dryRun: boolean): Promise<void> {
     throw new Error(`Tenant "${tenantId}" not found. Available: ${available}`);
   }
 
+  console.log('[index] ════════════════════════════════════════════════════════');
+  console.log(`[index] Tenant: ${tenantId}`);
+  console.log('[index] ────────────────────────────────────────────────────────');
+
+  // Read documents
+  console.log(`[index] Reading documents from ${tenant.corpusPath}`);
   const { documents, stats } = await readCorpusFiles(tenant.corpusPath);
+  console.log(`[index]   Found ${stats.total} files (.md: ${stats.md}, .txt: ${stats.txt}, .pdf: ${stats.pdf})`);
+
+  // Count tokens
   const tokens = countTokens(documents);
 
   if (dryRun) {
-    printDryRunReport(tenantId, stats, tokens, EMBEDDING_MODEL);
+    console.log('[index] DRY RUN - No changes will be made');
+    console.log('[index] ────────────────────────────────────────────────────────');
+    console.log('[index] Estimated:');
+    console.log(`[index]   Tokens: ~${tokens.toLocaleString()}`);
+    console.log(`[index]   Cost:   ${formatCost(calculateCost(tokens, EMBEDDING_MODEL))} (${EMBEDDING_MODEL})`);
+    console.log('[index] ════════════════════════════════════════════════════════');
+    console.log('[index] Run without --dry-run to proceed with indexing.');
     return;
   }
 
-  // TODO: Implement actual indexing in next task
-  console.log(`[index] TODO: Index ${stats.total} documents for ${tenantId}`);
+  // Backup existing index
+  const hadBackup = await backupIndex(tenant.indexPath);
+
+  try {
+    console.log(`[index] Processing with ${EMBEDDING_MODEL}...`);
+
+    const result = await indexTenant(tenantId, tenant.indexPath, documents, tokens);
+
+    console.log('[index] ────────────────────────────────────────────────────────');
+    console.log('[index] Results:');
+    console.log(`[index]   Documents: ${result.documents}`);
+    console.log(`[index]   Chunks:    ~${result.chunks}`);
+    console.log(`[index]   Tokens:    ${result.tokens.toLocaleString()}`);
+    console.log(`[index]   Est. cost: ${formatCost(result.cost)}`);
+    console.log(`[index]   Time:      ${(result.timeMs / 1000).toFixed(1)}s`);
+    console.log('[index] ────────────────────────────────────────────────────────');
+    console.log(`[index] Index saved to ${tenant.indexPath}`);
+
+    // Remove backup on success
+    if (hadBackup) {
+      await removeBackup(tenant.indexPath);
+    }
+
+    console.log('[index] ════════════════════════════════════════════════════════');
+  } catch (error) {
+    console.error(`[index] ERROR: ${error instanceof Error ? error.message : 'Unknown error'}`);
+
+    // Restore backup on failure
+    if (hadBackup) {
+      console.log('[index] Restoring previous index from backup...');
+      await restoreIndex(tenant.indexPath);
+      console.log('[index] Previous index restored. System remains functional.');
+    }
+
+    throw error;
+  }
 }
 
 async function backupIndex(indexPath: string): Promise<boolean> {
@@ -227,6 +285,62 @@ async function removeBackup(indexPath: string): Promise<void> {
     await rm(backupPath, { recursive: true });
     console.log('[index] Backup removed');
   }
+}
+
+interface IndexResult {
+  documents: number;
+  chunks: number;
+  tokens: number;
+  cost: number;
+  timeMs: number;
+}
+
+async function indexTenant(
+  tenantId: string,
+  indexPath: string,
+  documents: Document[],
+  tokens: number
+): Promise<IndexResult> {
+  const startTime = Date.now();
+
+  // Configure chunking
+  Settings.nodeParser = new SentenceSplitter({
+    chunkSize: CHUNK_SIZE,
+    chunkOverlap: CHUNK_OVERLAP,
+  });
+
+  // Configure embedding model
+  Settings.embedModel = new OpenAIEmbedding({
+    model: EMBEDDING_MODEL,
+  });
+
+  // Get vector store for tenant (creates fresh instance)
+  const vectorStore = await VectorStoreFactory.getProviderForTenant(
+    tenantId,
+    indexPath,
+    true // forceNew - don't load existing index
+  );
+
+  // Add documents (this chunks and embeds)
+  await vectorStore.addDocuments(documents);
+
+  // Persist to disk
+  await vectorStore.persist();
+
+  const timeMs = Date.now() - startTime;
+  const cost = calculateCost(tokens, EMBEDDING_MODEL);
+
+  // Get chunk count from the index
+  // Note: LlamaIndex doesn't expose this directly, estimate from tokens/chunk_size
+  const estimatedChunks = Math.ceil(tokens / CHUNK_SIZE);
+
+  return {
+    documents: documents.length,
+    chunks: estimatedChunks,
+    tokens,
+    cost,
+    timeMs,
+  };
 }
 
 function printUsage(): void {
