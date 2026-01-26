@@ -59,7 +59,7 @@ curl http://localhost:3001/health
 
 Expected response:
 ```json
-{"status":"ok","timestamp":"...","tenantsReady":["manufacturing-demo","interview-prep"]}
+{"status":"ok","service":"dochound-backend","timestamp":"..."}
 ```
 
 **Test a chat query:**
@@ -131,15 +131,19 @@ dochound/
 ### Working with Worktrees
 
 ```bash
+# From main/ directory:
+
 # List worktrees
 git worktree list
 
-# Create feature branch
+# Create feature branch (creates sibling to main/)
 git worktree add ../feature-name -b feature-name
 
 # Remove worktree when done
 git worktree remove ../feature-name
 ```
+
+**Note:** Before removing a worktree, copy any gitignored files (`.env`, etc.) to `main/` as they won't be tracked by git. See `CLAUDE.md` for detailed worktree cleanup workflow.
 
 ## Architecture
 

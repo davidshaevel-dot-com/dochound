@@ -470,10 +470,14 @@ Add a summary comment to the PR, tagging the reviewer:
 
 | # | Feedback | Resolution |
 |---|----------|------------|
-| 1 | Issue X | Fixed in abc123 |
-| 2 | Issue Y | Fixed in abc123 |
-| 3 | Issue Z | Declined - [technical reason] |
+| 1 | Issue X | Fixed in abc123 - Added validation for edge case |
+| 2 | Issue Y | Fixed in abc123 - Refactored to use recommended pattern |
+| 3 | Issue Z | Declined - YAGNI, feature not currently used |
+
+Thanks for the review!
 ```
+
+**Resolution column format:** Include both the commit reference AND a brief summary of how the feedback was addressed. This helps reviewers quickly understand what changed without needing to inspect each commit.
 
 ## Related Resources
 
