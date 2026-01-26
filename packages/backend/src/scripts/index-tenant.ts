@@ -8,7 +8,7 @@
  *   npm run index:all -- --dry-run                     # Preview all tenants
  */
 import 'dotenv/config';
-import { readdir, readFile } from 'fs/promises';
+import { readdir, readFile, rename, rm } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join, extname } from 'path';
 import { Document, PDFReader } from 'llamaindex';
@@ -185,6 +185,48 @@ async function processTenant(tenantId: string, dryRun: boolean): Promise<void> {
 
   // TODO: Implement actual indexing in next task
   console.log(`[index] TODO: Index ${stats.total} documents for ${tenantId}`);
+}
+
+async function backupIndex(indexPath: string): Promise<boolean> {
+  const backupPath = `${indexPath}.bak`;
+
+  if (!existsSync(indexPath)) {
+    return false; // No existing index to backup
+  }
+
+  // Remove old backup if exists
+  if (existsSync(backupPath)) {
+    await rm(backupPath, { recursive: true });
+  }
+
+  await rename(indexPath, backupPath);
+  console.log('[index] Backed up existing index');
+  return true;
+}
+
+async function restoreIndex(indexPath: string): Promise<void> {
+  const backupPath = `${indexPath}.bak`;
+
+  if (!existsSync(backupPath)) {
+    return; // No backup to restore
+  }
+
+  // Remove partial index if exists
+  if (existsSync(indexPath)) {
+    await rm(indexPath, { recursive: true });
+  }
+
+  await rename(backupPath, indexPath);
+  console.log('[index] Restored previous index from backup');
+}
+
+async function removeBackup(indexPath: string): Promise<void> {
+  const backupPath = `${indexPath}.bak`;
+
+  if (existsSync(backupPath)) {
+    await rm(backupPath, { recursive: true });
+    console.log('[index] Backup removed');
+  }
 }
 
 function printUsage(): void {
