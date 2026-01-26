@@ -5,6 +5,7 @@ import {
 } from 'llamaindex';
 import { existsSync } from 'fs';
 import { mkdir } from 'fs/promises';
+import { join } from 'path';
 import type {
   VectorStoreProvider,
   VectorStoreConfig,
@@ -49,17 +50,23 @@ export class SimpleVectorStoreProvider implements VectorStoreProvider {
       throw new Error('Provider not initialized. Call initialize() first.');
     }
 
-    // Create storage context with persist directory
-    const storageContext = await storageContextFromDefaults({
-      persistDir: this.config.indexPath,
-    });
+    // If index already exists, insert documents (additive)
+    if (this.index) {
+      for (const doc of documents) {
+        await this.index.insert(doc);
+      }
+      console.log(`[${this.config.tenantId}] Added ${documents.length} documents to existing index`);
+    } else {
+      // Create new index from documents
+      const storageContext = await storageContextFromDefaults({
+        persistDir: this.config.indexPath,
+      });
 
-    // Create index from documents (automatically embeds and stores)
-    this.index = await VectorStoreIndex.fromDocuments(documents, {
-      storageContext,
-    });
-
-    console.log(`[${this.config.tenantId}] Indexed ${documents.length} documents`);
+      this.index = await VectorStoreIndex.fromDocuments(documents, {
+        storageContext,
+      });
+      console.log(`[${this.config.tenantId}] Created new index with ${documents.length} documents`);
+    }
   }
 
   async query(queryText: string, topK: number = 5): Promise<VectorQueryResult> {
@@ -98,7 +105,7 @@ export class SimpleVectorStoreProvider implements VectorStoreProvider {
     }
 
     // Check for LlamaIndex storage files
-    const docStorePath = `${this.config.indexPath}/docstore.json`;
+    const docStorePath = join(this.config.indexPath, 'docstore.json');
     return existsSync(docStorePath);
   }
 }

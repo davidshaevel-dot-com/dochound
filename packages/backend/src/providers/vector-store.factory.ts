@@ -18,6 +18,9 @@ export type VectorStoreType = 'simple' | 'chroma';
 export class VectorStoreFactory {
   private static instances: Map<string, VectorStoreProvider> = new Map();
 
+  /** Private constructor - this class is not meant to be instantiated */
+  private constructor() {}
+
   /**
    * Get the configured vector store type from environment
    */
