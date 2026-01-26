@@ -20,6 +20,7 @@ export function ChatPanel() {
     setLoading,
     setError,
     clearMessages,
+    setSelectedSource,
   } = useChatStore();
 
   const chat = useChat({
@@ -46,8 +47,7 @@ export function ChatPanel() {
   };
 
   const handleCitationClick = (index: number) => {
-    // TODO: Integrate with Sources panel (TT-122)
-    console.log('Citation clicked:', index);
+    setSelectedSource(index);
   };
 
   return (
