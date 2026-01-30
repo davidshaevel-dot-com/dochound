@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Source } from '@/api/client';
+import type { Source } from '@/types';
 import styles from './SourceCard.module.css';
 
 /** Character limit for excerpt before truncation */
