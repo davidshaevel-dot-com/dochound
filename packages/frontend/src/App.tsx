@@ -1,6 +1,7 @@
 import { useTenantStore } from './stores/tenantStore';
 import { useTenants } from './hooks';
 import { ChatPanel } from './components/Chat';
+import { SourcePanel } from './components/Sources';
 import styles from './App.module.css';
 
 // Fallback tenants when API is unavailable (graceful degradation)
@@ -42,9 +43,14 @@ function App() {
           </select>
         </div>
       </header>
-      <main className={styles.main}>
-        <ChatPanel />
-      </main>
+      <div className={styles.content}>
+        <main className={styles.main}>
+          <ChatPanel />
+        </main>
+        <aside className={styles.sidebar}>
+          <SourcePanel />
+        </aside>
+      </div>
     </div>
   );
 }

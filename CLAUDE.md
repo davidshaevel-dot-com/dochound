@@ -377,9 +377,25 @@ During the interview with Jackie:
 
 **Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
 
-### Response Pattern
+**Process order:** Address automated review feedback FIRST, then perform our own review.
 
-When receiving code review feedback (e.g., from gemini-code-assist):
+---
+
+### Phase 1: Address Automated Review Feedback
+
+When reviewing a PR, FIRST check for and address any existing review comments (e.g., from gemini-code-assist).
+
+#### 1. Fetch Existing Comments
+
+```bash
+gh api repos/davidshaevel-dot-com/dochound/pulls/<PR_NUMBER>/comments
+```
+
+If no comments exist, skip to Phase 2.
+
+#### 2. Response Pattern
+
+For each piece of feedback:
 
 1. **READ** - Complete feedback without reacting
 2. **UNDERSTAND** - Restate requirement in own words (or ask if unclear)
@@ -388,11 +404,11 @@ When receiving code review feedback (e.g., from gemini-code-assist):
 5. **RESPOND** - Technical acknowledgment or reasoned pushback
 6. **IMPLEMENT** - One item at a time, test each
 
-### Handling Unclear Feedback
+#### 3. Handling Unclear Feedback
 
 **If ANY item is unclear → STOP.** Do not implement anything yet. Ask for clarification on ALL unclear items before proceeding. Items may be related, and partial understanding leads to wrong implementation.
 
-### When to Push Back
+#### 4. When to Push Back
 
 Push back when:
 - Suggestion breaks existing functionality
@@ -403,7 +419,7 @@ Push back when:
 
 Use technical reasoning, not defensiveness. Reference working tests/code.
 
-### Forbidden Responses
+#### 5. Forbidden Responses
 
 Never use performative agreement:
 - ❌ "You're absolutely right!"
@@ -412,30 +428,14 @@ Never use performative agreement:
 
 Instead, state the technical fix or pushback reasoning directly.
 
-### Proper Acknowledgment
+#### 6. Proper Acknowledgment
 
 When feedback IS correct:
 - ✅ "Fixed. [Brief description of what changed]"
 - ✅ "Good catch - [specific issue]. Fixed in [location]."
 - ✅ Just fix it and show in the code
 
-### Workflow Steps
-
-#### 1. Fetch Comments
-
-```bash
-gh api repos/davidshaevel-dot-com/dochound/pulls/<PR_NUMBER>/comments
-```
-
-#### 2. Evaluate Each Comment
-
-For each piece of feedback:
-- **AGREE:** Make the fix after verifying it doesn't break anything
-- **PARTIALLY AGREE:** Make the fix but note context
-- **DISAGREE:** Provide detailed technical explanation why
-- **UNCLEAR:** Ask for clarification before implementing
-
-#### 3. Make Fixes and Commit
+#### 7. Make Fixes and Commit
 
 ```bash
 git add <specific-files>
@@ -451,7 +451,7 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
 git push
 ```
 
-#### 4. Reply to Review Comments
+#### 8. Reply to Each Comment
 
 Reply **in the comment thread** (not top-level):
 
@@ -467,7 +467,7 @@ Every inline reply must include:
 - What was fixed and how
 - Technical reasoning if declining
 
-#### 5. Post Summary Comment
+#### 9. Post Summary Comment
 
 Add a summary comment to the PR:
 
@@ -481,11 +481,107 @@ Add a summary comment to the PR:
 | 1 | Issue X | Fixed in abc123 - Added validation for edge case |
 | 2 | Issue Y | Fixed in abc123 - Refactored to use recommended pattern |
 | 3 | Issue Z | Declined - YAGNI, feature not currently used |
-
-Thanks for the review!
 ```
 
-**Resolution column format:** Include both the commit reference AND a brief summary of how the feedback was addressed. This helps reviewers quickly understand what changed without needing to inspect each commit.
+**Resolution column format:** Include both the commit reference AND a brief summary of how the feedback was addressed.
+
+---
+
+### Phase 2: Perform Our Review
+
+After addressing automated feedback (or if none exists), conduct our own review.
+
+#### Pre-Review Checklist
+
+Before reviewing:
+
+- [ ] Read linked Linear issue for full context
+- [ ] Understand the scope (what SHOULD change vs what DID change)
+- [ ] Check if PR builds successfully
+- [ ] Note any dependencies on other PRs/branches
+
+#### Review Steps
+
+| Step | Focus |
+|------|-------|
+| 1. **Context** | Read PR description, linked issues, design docs |
+| 2. **Architecture** | Does the solution fit codebase patterns? |
+| 3. **File-by-file** | Read each changed file, check for issues |
+| 4. **Functional** | Does it work? Run tests/build |
+| 5. **Edge Cases** | What could break? Missing error handling? |
+| 6. **Security/Perf** | Any obvious concerns? |
+| 7. **Consistency** | Naming, formatting, patterns match codebase |
+
+#### Severity Classification
+
+Classify each finding:
+
+- 🔴 **Blocker** - Must fix before merge
+- 🟡 **Suggestion** - Would improve but not required
+- 🟢 **Nit** - Style/preference, take it or leave it
+
+This helps prioritize and reduces back-and-forth on minor items.
+
+#### "What I Checked" Summary
+
+After reviewing, state what you verified:
+
+```markdown
+Reviewed:
+- [x] TypeScript types correct
+- [x] Build passes
+- [x] Follows existing patterns
+- [ ] Did not test manually (backend not running)
+```
+
+This sets expectations about review depth.
+
+#### Neutral Positive Observations
+
+Note what works well without being performative:
+- ✅ "The error handling pattern here is consistent with the rest of the codebase"
+- ✅ "This matches the approach used in [other file]"
+- ❌ "Great job on this!"
+- ❌ "Love this approach!"
+
+#### Address Our Own Suggestions
+
+If we find suggestions during our review, implement fixes BEFORE posting the review summary. This keeps the PR clean and avoids extra round-trips.
+
+#### Post Review Summary
+
+```bash
+gh pr comment <PR_NUMBER> --body "$(cat <<'EOF'
+## Code Review Summary
+
+**Verdict:** ✅ Approved / ✅ Approved with suggestions / ❌ Request Changes
+
+### Findings
+
+| Severity | File | Issue |
+|----------|------|-------|
+| 🔴 Blocker | file.ts | Must fix X before merge |
+| 🟡 Suggestion | file.ts | Consider doing Y - addressed in <SHA> |
+| 🟢 Nit | file.ts | Minor style preference |
+
+### What I Checked
+
+- [x] TypeScript types correct
+- [x] Build passes
+- [x] Follows existing patterns
+- [ ] Did not test manually (reason)
+
+EOF
+)"
+```
+
+#### Verdict Guidelines
+
+| Verdict | When to Use |
+|---------|-------------|
+| **✅ Approved** | No issues found, ready to merge |
+| **✅ Approved with suggestions** | Minor improvements identified, can merge after addressing or as follow-up |
+| **❌ Request Changes** | 🔴 Blockers found, must fix before merge |
 
 ## Related Resources
 
