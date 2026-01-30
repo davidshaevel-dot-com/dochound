@@ -127,8 +127,8 @@ const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE ?? '1024', 10);
 const CHUNK_OVERLAP = parseInt(process.env.CHUNK_OVERLAP ?? '20', 10);
 
 function countTokens(documents: Document[]): number {
-  // Use cl100k_base encoding (used by text-embedding-3-* models)
-  const enc = encoding_for_model('text-embedding-3-small' as TiktokenModel);
+  // All supported embedding models use cl100k_base encoding
+  const enc = encoding_for_model(EMBEDDING_MODEL as TiktokenModel);
   let totalTokens = 0;
 
   for (const doc of documents) {
