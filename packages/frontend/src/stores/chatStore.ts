@@ -30,6 +30,8 @@ export const useChatStore = create<ChatStore>((set) => ({
   addAssistantMessage: (content, sources) =>
     set((state) => ({
       messages: [...state.messages, { role: 'assistant', content, sources }],
+      // Clear source selection when new response arrives (user will select from new sources)
+      selectedSourceIndex: null,
     })),
 
   setLoading: (loading) => set({ isLoading: loading }),

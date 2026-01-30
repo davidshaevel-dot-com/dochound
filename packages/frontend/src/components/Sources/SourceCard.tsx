@@ -26,7 +26,6 @@ export function SourceCard({ source, index, isSelected, onSelect }: SourceCardPr
 
   const scorePercent = Math.round(source.score * 100);
   const shouldTruncate = source.excerpt.length > 150;
-  const showExpandButton = shouldTruncate;
 
   return (
     <div
@@ -64,7 +63,7 @@ export function SourceCard({ source, index, isSelected, onSelect }: SourceCardPr
         {source.excerpt}
       </div>
 
-      {showExpandButton && (
+      {shouldTruncate && (
         <button
           type="button"
           className={styles.expandButton}

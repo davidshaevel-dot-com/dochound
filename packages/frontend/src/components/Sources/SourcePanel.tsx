@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useChatStore } from '@/stores/chatStore';
 import { SourceCard } from './SourceCard';
 import styles from './SourcePanel.module.css';
@@ -9,12 +10,13 @@ import styles from './SourcePanel.module.css';
 export function SourcePanel() {
   const { messages, selectedSourceIndex, setSelectedSource } = useChatStore();
 
-  // Get sources from the latest assistant message
-  const latestAssistantMessage = [...messages]
-    .reverse()
-    .find((m) => m.role === 'assistant');
-
-  const sources = latestAssistantMessage?.sources ?? [];
+  // Get sources from the latest assistant message (memoized to avoid array copy on each render)
+  const sources = useMemo(() => {
+    const latestAssistantMessage = [...messages]
+      .reverse()
+      .find((m) => m.role === 'assistant');
+    return latestAssistantMessage?.sources ?? [];
+  }, [messages]);
 
   const handleSelect = (index: number) => {
     // Toggle selection if clicking the same source
