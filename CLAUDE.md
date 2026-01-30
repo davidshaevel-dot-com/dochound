@@ -434,6 +434,55 @@ Note what works well without being performative:
 - ❌ "Great job on this!"
 - ❌ "Love this approach!"
 
+#### Posting the Review
+
+After completing the review, post findings to the PR:
+
+##### 1. Post Review Summary Comment
+
+```bash
+gh pr comment <PR_NUMBER> --body "$(cat <<'EOF'
+## Code Review Summary
+
+**Verdict:** ✅ Approved / ✅ Approved with suggestions / ❌ Request Changes
+
+### Findings
+
+| Severity | File | Issue |
+|----------|------|-------|
+| 🔴 Blocker | file.ts | Must fix X before merge |
+| 🟡 Suggestion | file.ts | Consider doing Y |
+| 🟢 Nit | file.ts | Minor style preference |
+
+### What I Checked
+
+- [x] TypeScript types correct
+- [x] Build passes
+- [x] Follows existing patterns
+- [ ] Did not test manually (reason)
+
+EOF
+)"
+```
+
+##### 2. If Suggestions Were Addressed
+
+Update the PR with a follow-up comment:
+
+```bash
+gh pr comment <PR_NUMBER> --body "Suggestions addressed in commit <SHA>:
+- Memoized X to avoid Y
+- Added Z for better W"
+```
+
+##### 3. Verdict Guidelines
+
+| Verdict | When to Use |
+|---------|-------------|
+| **✅ Approved** | No issues found, ready to merge |
+| **✅ Approved with suggestions** | Minor improvements identified, can merge after addressing or as follow-up |
+| **❌ Request Changes** | 🔴 Blockers found, must fix before merge |
+
 ---
 
 ### Receiving Reviews
