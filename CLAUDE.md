@@ -377,7 +377,68 @@ During the interview with Jackie:
 
 **Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
 
-### Response Pattern
+---
+
+### Performing Reviews
+
+#### Pre-Review Checklist
+
+Before reviewing any PR:
+
+- [ ] Read linked Linear issue for full context
+- [ ] Understand the scope (what SHOULD change vs what DID change)
+- [ ] Check if PR builds successfully
+- [ ] Note any dependencies on other PRs/branches
+
+#### Review Steps
+
+| Step | Focus |
+|------|-------|
+| 1. **Context** | Read PR description, linked issues, design docs |
+| 2. **Architecture** | Does the solution fit codebase patterns? |
+| 3. **File-by-file** | Read each changed file, check for issues |
+| 4. **Functional** | Does it work? Run tests/build |
+| 5. **Edge Cases** | What could break? Missing error handling? |
+| 6. **Security/Perf** | Any obvious concerns? |
+| 7. **Consistency** | Naming, formatting, patterns match codebase |
+
+#### Severity Classification
+
+Classify each feedback item:
+
+- 🔴 **Blocker** - Must fix before merge
+- 🟡 **Suggestion** - Would improve but not required
+- 🟢 **Nit** - Style/preference, take it or leave it
+
+This helps authors prioritize and reduces back-and-forth on minor items.
+
+#### "What I Checked" Summary
+
+After reviewing, state what you verified:
+
+```markdown
+Reviewed:
+- [x] TypeScript types correct
+- [x] Build passes
+- [x] Follows existing patterns
+- [ ] Did not test manually (backend not running)
+```
+
+This sets expectations about review depth.
+
+#### Neutral Positive Observations
+
+Note what works well without being performative:
+- ✅ "The error handling pattern here is consistent with the rest of the codebase"
+- ✅ "This matches the approach used in [other file]"
+- ❌ "Great job on this!"
+- ❌ "Love this approach!"
+
+---
+
+### Receiving Reviews
+
+#### Response Pattern
 
 When receiving code review feedback (e.g., from gemini-code-assist):
 
@@ -388,11 +449,11 @@ When receiving code review feedback (e.g., from gemini-code-assist):
 5. **RESPOND** - Technical acknowledgment or reasoned pushback
 6. **IMPLEMENT** - One item at a time, test each
 
-### Handling Unclear Feedback
+#### Handling Unclear Feedback
 
 **If ANY item is unclear → STOP.** Do not implement anything yet. Ask for clarification on ALL unclear items before proceeding. Items may be related, and partial understanding leads to wrong implementation.
 
-### When to Push Back
+#### When to Push Back
 
 Push back when:
 - Suggestion breaks existing functionality
@@ -403,7 +464,7 @@ Push back when:
 
 Use technical reasoning, not defensiveness. Reference working tests/code.
 
-### Forbidden Responses
+#### Forbidden Responses
 
 Never use performative agreement:
 - ❌ "You're absolutely right!"
@@ -412,12 +473,14 @@ Never use performative agreement:
 
 Instead, state the technical fix or pushback reasoning directly.
 
-### Proper Acknowledgment
+#### Proper Acknowledgment
 
 When feedback IS correct:
 - ✅ "Fixed. [Brief description of what changed]"
 - ✅ "Good catch - [specific issue]. Fixed in [location]."
 - ✅ Just fix it and show in the code
+
+---
 
 ### Workflow Steps
 
