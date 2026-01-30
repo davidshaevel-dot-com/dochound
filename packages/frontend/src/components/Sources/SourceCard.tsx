@@ -27,7 +27,7 @@ export function SourceCard({ source, index, isSelected, onSelect }: SourceCardPr
     setIsExpanded(!isExpanded);
   };
 
-  const scorePercent = Math.round(source.score * 100);
+  const scorePercent = Math.round((source.score ?? 0) * 100);
   const shouldTruncate = source.excerpt.length > EXCERPT_TRUNCATE_LENGTH;
 
   return (
