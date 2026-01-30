@@ -377,13 +377,123 @@ During the interview with Jackie:
 
 **Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
 
+**Process order:** Address automated review feedback FIRST, then perform our own review.
+
 ---
 
-### Performing Reviews
+### Phase 1: Address Automated Review Feedback
+
+When reviewing a PR, FIRST check for and address any existing review comments (e.g., from gemini-code-assist).
+
+#### 1. Fetch Existing Comments
+
+```bash
+gh api repos/davidshaevel-dot-com/dochound/pulls/<PR_NUMBER>/comments
+```
+
+If no comments exist, skip to Phase 2.
+
+#### 2. Response Pattern
+
+For each piece of feedback:
+
+1. **READ** - Complete feedback without reacting
+2. **UNDERSTAND** - Restate requirement in own words (or ask if unclear)
+3. **VERIFY** - Check against codebase reality
+4. **EVALUATE** - Technically sound for THIS codebase?
+5. **RESPOND** - Technical acknowledgment or reasoned pushback
+6. **IMPLEMENT** - One item at a time, test each
+
+#### 3. Handling Unclear Feedback
+
+**If ANY item is unclear → STOP.** Do not implement anything yet. Ask for clarification on ALL unclear items before proceeding. Items may be related, and partial understanding leads to wrong implementation.
+
+#### 4. When to Push Back
+
+Push back when:
+- Suggestion breaks existing functionality
+- Reviewer lacks full context
+- Violates YAGNI (unused feature)
+- Technically incorrect for this stack
+- Conflicts with architectural decisions
+
+Use technical reasoning, not defensiveness. Reference working tests/code.
+
+#### 5. Forbidden Responses
+
+Never use performative agreement:
+- ❌ "You're absolutely right!"
+- ❌ "Great point!" / "Excellent feedback!"
+- ❌ "Thanks for catching that!"
+
+Instead, state the technical fix or pushback reasoning directly.
+
+#### 6. Proper Acknowledgment
+
+When feedback IS correct:
+- ✅ "Fixed. [Brief description of what changed]"
+- ✅ "Good catch - [specific issue]. Fixed in [location]."
+- ✅ Just fix it and show in the code
+
+#### 7. Make Fixes and Commit
+
+```bash
+git add <specific-files>
+git commit -m "fix: address code review feedback from <reviewer>
+
+- Fixed X (valid concern about Y)
+- Fixed Z (improves W)
+- Declined A (breaks B / YAGNI / reason)
+
+related-issues: TT-XXX
+
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
+git push
+```
+
+#### 8. Reply to Each Comment
+
+Reply **in the comment thread** (not top-level):
+
+**IMPORTANT: Always start with `@gemini-code-assist` so they are notified of your response.**
+
+```bash
+gh api repos/davidshaevel-dot-com/dochound/pulls/<PR>/comments/<COMMENT_ID>/replies \
+  -f body="@gemini-code-assist Fixed. Changed X to Y."
+```
+
+Every inline reply must include:
+- **`@gemini-code-assist` at the start** (required for notification)
+- What was fixed and how
+- Technical reasoning if declining
+
+#### 9. Post Summary Comment
+
+Add a summary comment to the PR:
+
+**IMPORTANT: Always start with `@gemini-code-assist` so they are notified.**
+
+```markdown
+@gemini-code-assist Review addressed:
+
+| # | Feedback | Resolution |
+|---|----------|------------|
+| 1 | Issue X | Fixed in abc123 - Added validation for edge case |
+| 2 | Issue Y | Fixed in abc123 - Refactored to use recommended pattern |
+| 3 | Issue Z | Declined - YAGNI, feature not currently used |
+```
+
+**Resolution column format:** Include both the commit reference AND a brief summary of how the feedback was addressed.
+
+---
+
+### Phase 2: Perform Our Review
+
+After addressing automated feedback (or if none exists), conduct our own review.
 
 #### Pre-Review Checklist
 
-Before reviewing any PR:
+Before reviewing:
 
 - [ ] Read linked Linear issue for full context
 - [ ] Understand the scope (what SHOULD change vs what DID change)
@@ -404,13 +514,13 @@ Before reviewing any PR:
 
 #### Severity Classification
 
-Classify each feedback item:
+Classify each finding:
 
 - 🔴 **Blocker** - Must fix before merge
 - 🟡 **Suggestion** - Would improve but not required
 - 🟢 **Nit** - Style/preference, take it or leave it
 
-This helps authors prioritize and reduces back-and-forth on minor items.
+This helps prioritize and reduces back-and-forth on minor items.
 
 #### "What I Checked" Summary
 
@@ -434,11 +544,11 @@ Note what works well without being performative:
 - ❌ "Great job on this!"
 - ❌ "Love this approach!"
 
-#### Posting the Review
+#### Address Our Own Suggestions
 
-After completing the review, post findings to the PR:
+If we find suggestions during our review, implement fixes BEFORE posting the review summary. This keeps the PR clean and avoids extra round-trips.
 
-##### 1. Post Review Summary Comment
+#### Post Review Summary
 
 ```bash
 gh pr comment <PR_NUMBER> --body "$(cat <<'EOF'
@@ -451,7 +561,7 @@ gh pr comment <PR_NUMBER> --body "$(cat <<'EOF'
 | Severity | File | Issue |
 |----------|------|-------|
 | 🔴 Blocker | file.ts | Must fix X before merge |
-| 🟡 Suggestion | file.ts | Consider doing Y |
+| 🟡 Suggestion | file.ts | Consider doing Y - addressed in <SHA> |
 | 🟢 Nit | file.ts | Minor style preference |
 
 ### What I Checked
@@ -465,139 +575,13 @@ EOF
 )"
 ```
 
-##### 2. If Suggestions Were Addressed
-
-Update the PR with a follow-up comment:
-
-```bash
-gh pr comment <PR_NUMBER> --body "Suggestions addressed in commit <SHA>:
-- Memoized X to avoid Y
-- Added Z for better W"
-```
-
-##### 3. Verdict Guidelines
+#### Verdict Guidelines
 
 | Verdict | When to Use |
 |---------|-------------|
 | **✅ Approved** | No issues found, ready to merge |
 | **✅ Approved with suggestions** | Minor improvements identified, can merge after addressing or as follow-up |
 | **❌ Request Changes** | 🔴 Blockers found, must fix before merge |
-
----
-
-### Receiving Reviews
-
-#### Response Pattern
-
-When receiving code review feedback (e.g., from gemini-code-assist):
-
-1. **READ** - Complete feedback without reacting
-2. **UNDERSTAND** - Restate requirement in own words (or ask if unclear)
-3. **VERIFY** - Check against codebase reality
-4. **EVALUATE** - Technically sound for THIS codebase?
-5. **RESPOND** - Technical acknowledgment or reasoned pushback
-6. **IMPLEMENT** - One item at a time, test each
-
-#### Handling Unclear Feedback
-
-**If ANY item is unclear → STOP.** Do not implement anything yet. Ask for clarification on ALL unclear items before proceeding. Items may be related, and partial understanding leads to wrong implementation.
-
-#### When to Push Back
-
-Push back when:
-- Suggestion breaks existing functionality
-- Reviewer lacks full context
-- Violates YAGNI (unused feature)
-- Technically incorrect for this stack
-- Conflicts with architectural decisions
-
-Use technical reasoning, not defensiveness. Reference working tests/code.
-
-#### Forbidden Responses
-
-Never use performative agreement:
-- ❌ "You're absolutely right!"
-- ❌ "Great point!" / "Excellent feedback!"
-- ❌ "Thanks for catching that!"
-
-Instead, state the technical fix or pushback reasoning directly.
-
-#### Proper Acknowledgment
-
-When feedback IS correct:
-- ✅ "Fixed. [Brief description of what changed]"
-- ✅ "Good catch - [specific issue]. Fixed in [location]."
-- ✅ Just fix it and show in the code
-
----
-
-### Workflow Steps
-
-#### 1. Fetch Comments
-
-```bash
-gh api repos/davidshaevel-dot-com/dochound/pulls/<PR_NUMBER>/comments
-```
-
-#### 2. Evaluate Each Comment
-
-For each piece of feedback:
-- **AGREE:** Make the fix after verifying it doesn't break anything
-- **PARTIALLY AGREE:** Make the fix but note context
-- **DISAGREE:** Provide detailed technical explanation why
-- **UNCLEAR:** Ask for clarification before implementing
-
-#### 3. Make Fixes and Commit
-
-```bash
-git add <specific-files>
-git commit -m "fix: address code review feedback from <reviewer>
-
-- Fixed X (valid concern about Y)
-- Fixed Z (improves W)
-- Declined A (breaks B / YAGNI / reason)
-
-related-issues: TT-XXX
-
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
-git push
-```
-
-#### 4. Reply to Review Comments
-
-Reply **in the comment thread** (not top-level):
-
-**IMPORTANT: Always start with `@gemini-code-assist` so they are notified of your response.**
-
-```bash
-gh api repos/davidshaevel-dot-com/dochound/pulls/<PR>/comments/<COMMENT_ID>/replies \
-  -f body="@gemini-code-assist Fixed. Changed X to Y."
-```
-
-Every inline reply must include:
-- **`@gemini-code-assist` at the start** (required for notification)
-- What was fixed and how
-- Technical reasoning if declining
-
-#### 5. Post Summary Comment
-
-Add a summary comment to the PR:
-
-**IMPORTANT: Always start with `@gemini-code-assist` so they are notified.**
-
-```markdown
-@gemini-code-assist Review addressed:
-
-| # | Feedback | Resolution |
-|---|----------|------------|
-| 1 | Issue X | Fixed in abc123 - Added validation for edge case |
-| 2 | Issue Y | Fixed in abc123 - Refactored to use recommended pattern |
-| 3 | Issue Z | Declined - YAGNI, feature not currently used |
-
-Thanks for the review!
-```
-
-**Resolution column format:** Include both the commit reference AND a brief summary of how the feedback was addressed. This helps reviewers quickly understand what changed without needing to inspect each commit.
 
 ## Related Resources
 
