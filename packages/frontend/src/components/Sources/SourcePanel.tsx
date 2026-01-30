@@ -10,12 +10,15 @@ import styles from './SourcePanel.module.css';
 export function SourcePanel() {
   const { messages, selectedSourceIndex, setSelectedSource } = useChatStore();
 
-  // Get sources from the latest assistant message (memoized to avoid array copy on each render)
+  // Get sources from the latest assistant message (iterates backwards to avoid array copy)
   const sources = useMemo(() => {
-    const latestAssistantMessage = [...messages]
-      .reverse()
-      .find((m) => m.role === 'assistant');
-    return latestAssistantMessage?.sources ?? [];
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const message = messages[i];
+      if (message.role === 'assistant') {
+        return message.sources ?? [];
+      }
+    }
+    return [];
   }, [messages]);
 
   const handleSelect = (index: number) => {
