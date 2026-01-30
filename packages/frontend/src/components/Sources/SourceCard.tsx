@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Source } from '@/api/client';
 import styles from './SourceCard.module.css';
 
+/** Character limit for excerpt before truncation */
+const EXCERPT_TRUNCATE_LENGTH = 150;
+
 interface SourceCardProps {
   source: Source;
   index: number;
@@ -25,7 +28,7 @@ export function SourceCard({ source, index, isSelected, onSelect }: SourceCardPr
   };
 
   const scorePercent = Math.round(source.score * 100);
-  const shouldTruncate = source.excerpt.length > 150;
+  const shouldTruncate = source.excerpt.length > EXCERPT_TRUNCATE_LENGTH;
 
   return (
     <div
@@ -57,11 +60,11 @@ export function SourceCard({ source, index, isSelected, onSelect }: SourceCardPr
         <span className={styles.scoreText}>{scorePercent}%</span>
       </div>
 
-      <div
+      <p
         className={`${styles.excerpt} ${shouldTruncate && !isExpanded ? styles.excerptTruncated : ''}`}
       >
         {source.excerpt}
-      </div>
+      </p>
 
       {shouldTruncate && (
         <button
