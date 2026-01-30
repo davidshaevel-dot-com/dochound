@@ -61,15 +61,19 @@ export class VectorStoreFactory {
    *
    * @param tenantId - The tenant identifier
    * @param indexPath - Path to store/load the index
+   * @param forceNew - If true, creates fresh provider bypassing cache (for re-indexing)
    */
   static async getProviderForTenant(
     tenantId: string,
-    indexPath: string
+    indexPath: string,
+    forceNew: boolean = false
   ): Promise<VectorStoreProvider> {
-    // Check cache
-    const cached = this.instances.get(tenantId);
-    if (cached) {
-      return cached;
+    // If forceNew, skip cache and create fresh instance
+    if (!forceNew) {
+      const cached = this.instances.get(tenantId);
+      if (cached) {
+        return cached;
+      }
     }
 
     // Create and initialize new provider
@@ -78,8 +82,10 @@ export class VectorStoreFactory {
 
     await provider.initialize(config);
 
-    // Cache for future requests
-    this.instances.set(tenantId, provider);
+    // Only cache if not forceNew
+    if (!forceNew) {
+      this.instances.set(tenantId, provider);
+    }
 
     return provider;
   }
