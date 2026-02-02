@@ -1,4 +1,4 @@
-import { ChatMessage } from '@/api/client';
+import type { ChatMessage } from '@/types';
 import styles from './Message.module.css';
 
 interface MessageProps {

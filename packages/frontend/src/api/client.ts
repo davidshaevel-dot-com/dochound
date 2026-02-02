@@ -2,31 +2,12 @@
  * API client for DocHound backend
  */
 
+import type { Source, ChatMessage, ChatResponse, Tenant } from '@/types';
+
+// Re-export types for backwards compatibility
+export type { Source, ChatMessage, ChatResponse, Tenant };
+
 const API_BASE = '/api';
-
-export interface Source {
-  documentId: string;
-  documentName: string;
-  excerpt: string;
-  score: number;
-}
-
-export interface ChatMessage {
-  role: 'user' | 'assistant';
-  content: string;
-  sources?: Source[];
-}
-
-export interface ChatResponse {
-  message: string;
-  sources: Source[];
-}
-
-export interface Tenant {
-  id: string;
-  name: string;
-  documentCount: number;
-}
 
 /**
  * Send a chat message to a specific tenant
