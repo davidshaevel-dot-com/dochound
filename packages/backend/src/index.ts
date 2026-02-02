@@ -1,7 +1,8 @@
 import 'dotenv/config';
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import { healthRouter } from './routes/health.js';
+import { healthRouter, tenantsRouter, chatRouter } from './routes/index.js';
+import { tenantService } from './tenants/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,9 +16,33 @@ app.use(express.json());
 
 // Routes
 app.use('/api', healthRouter);
+app.use('/api/tenants', tenantsRouter);
+app.use('/api/tenants', chatRouter);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`DocHound backend running on http://localhost:${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
+// Error handling middleware
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  console.error('[Server] Error:', err.message);
+  res.status(500).json({
+    error: 'Internal Server Error',
+    message: process.env.NODE_ENV === 'production' ? 'An unexpected error occurred' : err.message,
+  });
 });
+
+// Initialize services and start server
+async function start() {
+  try {
+    // Initialize tenant service (discovers tenants from filesystem)
+    await tenantService.initialize();
+
+    app.listen(PORT, () => {
+      console.log(`DocHound backend running on http://localhost:${PORT}`);
+      console.log(`Health check: http://localhost:${PORT}/api/health`);
+      console.log(`Tenants API: http://localhost:${PORT}/api/tenants`);
+    });
+  } catch (error) {
+    console.error('[Server] Failed to start:', error);
+    process.exit(1);
+  }
+}
+
+start();
