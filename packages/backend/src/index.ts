@@ -21,7 +21,7 @@ app.use('/api/tenants', chatRouter);
 
 // Error handling middleware
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.error('[Server] Error:', err.message);
+  console.error('[Server] Error:', err);
   res.status(500).json({
     error: 'Internal Server Error',
     message: process.env.NODE_ENV === 'production' ? 'An unexpected error occurred' : err.message,
