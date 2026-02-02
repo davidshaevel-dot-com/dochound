@@ -35,6 +35,17 @@ async function countDocuments(corpusPath: string): Promise<number> {
 }
 
 /**
+ * Convert TenantConfig to API response format
+ */
+async function toTenantResponse(tenant: { id: string; name: string; corpusPath: string }): Promise<TenantResponse> {
+  return {
+    id: tenant.id,
+    name: tenant.name,
+    documentCount: await countDocuments(tenant.corpusPath),
+  };
+}
+
+/**
  * GET /api/tenants
  * List all available tenants
  */
@@ -44,11 +55,7 @@ tenantsRouter.get('/', async (_req: Request, res: Response, next: NextFunction) 
 
     // Map to API response format with document counts
     const response: TenantResponse[] = await Promise.all(
-      tenants.map(async (tenant) => ({
-        id: tenant.id,
-        name: tenant.name,
-        documentCount: await countDocuments(tenant.corpusPath),
-      }))
+      tenants.map(toTenantResponse)
     );
 
     res.json(response);
@@ -74,13 +81,7 @@ tenantsRouter.get('/:tenantId', async (req: Request, res: Response, next: NextFu
       return;
     }
 
-    const response: TenantResponse = {
-      id: tenant.id,
-      name: tenant.name,
-      documentCount: await countDocuments(tenant.corpusPath),
-    };
-
-    res.json(response);
+    res.json(await toTenantResponse(tenant));
   } catch (error) {
     next(error);
   }
