@@ -1,17 +1,20 @@
 import { useChatStore } from '@/stores/chatStore';
 import { useTenantStore } from '@/stores/tenantStore';
-import { useChat, useTenants } from '@/hooks';
+import { useChat } from '@/hooks';
 import { TenantBadge } from '@/components/Tenant';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import styles from './ChatPanel.module.css';
 
+interface ChatPanelProps {
+  currentTenantName: string;
+}
+
 /**
  * Main chat container - orchestrates message flow
  */
-export function ChatPanel() {
+export function ChatPanel({ currentTenantName }: ChatPanelProps) {
   const { currentTenant } = useTenantStore();
-  const { data: tenants } = useTenants();
   const {
     messages,
     isLoading,
@@ -44,10 +47,6 @@ export function ChatPanel() {
   const handleCitationClick = (index: number) => {
     setSelectedSource(index);
   };
-
-  // Look up current tenant name from the tenants list
-  const currentTenantName =
-    tenants?.find((t) => t.id === currentTenant)?.name ?? currentTenant;
 
   return (
     <div className={styles.panel}>

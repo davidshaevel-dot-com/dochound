@@ -21,6 +21,10 @@ function App() {
   // Use API tenants if available, otherwise fall back to hardcoded list
   const availableTenants = tenants ?? (isError ? FALLBACK_TENANTS : []);
 
+  // Look up current tenant name for display
+  const currentTenantName =
+    availableTenants.find((t) => t.id === currentTenant)?.name ?? currentTenant;
+
   const handleTenantChange = (tenantId: string) => {
     setTenant(tenantId);
     clearMessages();
@@ -40,7 +44,7 @@ function App() {
       </header>
       <div className={styles.content}>
         <main className={styles.main}>
-          <ChatPanel />
+          <ChatPanel currentTenantName={currentTenantName} />
         </main>
         <aside className={styles.sidebar}>
           <SourcePanel />
