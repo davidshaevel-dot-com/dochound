@@ -27,7 +27,7 @@ export function TenantSelector({
         disabled={isLoading}
       >
         {isLoading ? (
-          <option>Loading...</option>
+          <option key="loading" value="">Loading...</option>
         ) : (
           tenants.map((tenant) => (
             <option key={tenant.id} value={tenant.id}>
