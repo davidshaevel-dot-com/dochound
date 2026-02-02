@@ -100,8 +100,8 @@ export class SimpleVectorStoreProvider implements VectorStoreProvider {
       return false;
     }
 
-    // Check for LlamaIndex storage files
-    const docStorePath = join(this.config.indexPath, 'docstore.json');
+    // Check for LlamaIndex storage files (uses underscores: doc_store.json)
+    const docStorePath = join(this.config.indexPath, 'doc_store.json');
     return existsSync(docStorePath);
   }
 }
