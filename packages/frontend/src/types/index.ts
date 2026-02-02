@@ -13,7 +13,7 @@ export interface Source {
   documentId: string;
   documentName: string;
   excerpt: string;
-  score: number;
+  score?: number;
 }
 
 /**
