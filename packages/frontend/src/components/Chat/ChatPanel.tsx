@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
 import { useChatStore } from '@/stores/chatStore';
 import { useTenantStore } from '@/stores/tenantStore';
-import { useChat } from '@/hooks';
+import { useChat, useTenants } from '@/hooks';
+import { TenantBadge } from '@/components/Tenant';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import styles from './ChatPanel.module.css';
@@ -11,6 +11,7 @@ import styles from './ChatPanel.module.css';
  */
 export function ChatPanel() {
   const { currentTenant } = useTenantStore();
+  const { data: tenants } = useTenants();
   const {
     messages,
     isLoading,
@@ -19,7 +20,6 @@ export function ChatPanel() {
     addAssistantMessage,
     setLoading,
     setError,
-    clearMessages,
     setSelectedSource,
   } = useChatStore();
 
@@ -34,11 +34,6 @@ export function ChatPanel() {
     },
   });
 
-  // Clear messages when tenant changes
-  useEffect(() => {
-    clearMessages();
-  }, [currentTenant]);
-
   const handleSubmit = (message: string) => {
     addUserMessage(message);
     setLoading(true);
@@ -50,8 +45,15 @@ export function ChatPanel() {
     setSelectedSource(index);
   };
 
+  // Look up current tenant name from the tenants list
+  const currentTenantName =
+    tenants?.find((t) => t.id === currentTenant)?.name ?? currentTenant;
+
   return (
     <div className={styles.panel}>
+      <div className={styles.header}>
+        <TenantBadge tenantName={currentTenantName} />
+      </div>
       <MessageList
         messages={messages}
         isLoading={isLoading}
