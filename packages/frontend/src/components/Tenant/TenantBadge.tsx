@@ -11,7 +11,7 @@ interface TenantBadgeProps {
 export function TenantBadge({ tenantName }: TenantBadgeProps) {
   return (
     <div className={styles.badge}>
-      <span className={styles.icon}>📚</span>
+      <span className={styles.icon} role="img" aria-label="Documents">📚</span>
       <span className={styles.label}>Searching:</span>
       <span className={styles.name}>{tenantName}</span>
     </div>

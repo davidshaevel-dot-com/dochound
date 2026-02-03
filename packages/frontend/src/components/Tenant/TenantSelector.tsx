@@ -24,10 +24,12 @@ export function TenantSelector({
         id="tenant-select"
         value={currentTenant}
         onChange={(e) => onTenantChange(e.target.value)}
-        disabled={isLoading}
+        disabled={isLoading || tenants.length === 0}
       >
         {isLoading ? (
           <option key="loading" value={currentTenant}>Loading...</option>
+        ) : tenants.length === 0 ? (
+          <option key="empty" value="">No tenants available</option>
         ) : (
           tenants.map((tenant) => (
             <option key={tenant.id} value={tenant.id}>
