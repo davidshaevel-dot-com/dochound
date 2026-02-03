@@ -86,7 +86,7 @@ export class RAGService {
         { role: 'system', content: stage2Prompt },
         { role: 'user', content: request.message },
       ],
-      tool_choice: 'none', // Prevent any tool calls
+      // No tools specified = no tool calls possible
     });
 
     return {
