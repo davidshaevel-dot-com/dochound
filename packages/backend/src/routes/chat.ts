@@ -14,7 +14,6 @@ export const chatRouter = Router();
  */
 interface ChatRequestBody {
   message: string;
-  conversationId?: string; // Reserved for future use
 }
 
 /**

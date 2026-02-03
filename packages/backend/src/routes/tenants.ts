@@ -20,6 +20,9 @@ interface TenantResponse {
   documentCount: number;
 }
 
+/** Supported document file extensions */
+const SUPPORTED_EXTENSIONS = ['.md', '.txt', '.pdf'];
+
 /**
  * Count documents in a corpus directory
  */
@@ -28,9 +31,8 @@ async function countDocuments(corpusPath: string): Promise<number> {
     return 0;
   }
   const files = await readdir(corpusPath);
-  // Count only supported file types
   return files.filter(f =>
-    f.endsWith('.md') || f.endsWith('.txt') || f.endsWith('.pdf')
+    SUPPORTED_EXTENSIONS.some(ext => f.endsWith(ext))
   ).length;
 }
 
