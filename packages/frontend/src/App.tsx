@@ -1,9 +1,9 @@
-import { useTenantStore } from './stores/tenantStore';
-import { useChatStore } from './stores/chatStore';
-import { useTenants } from './hooks';
-import { AppShell, Header } from './components/Layout';
-import { ChatPanel } from './components/Chat';
-import { SourcePanel } from './components/Sources';
+import { useTenantStore } from '@/stores/tenantStore';
+import { useChatStore } from '@/stores/chatStore';
+import { useTenants } from '@/hooks';
+import { AppShell, Header } from '@/components/Layout';
+import { ChatPanel } from '@/components/Chat';
+import { SourcePanel } from '@/components/Sources';
 
 // Fallback tenants when API is unavailable (graceful degradation)
 // TODO: For production, consider disabling the selector on error instead of falling back
