@@ -1,10 +1,9 @@
-import { useTenantStore } from './stores/tenantStore';
-import { useChatStore } from './stores/chatStore';
-import { useTenants } from './hooks';
-import { ChatPanel } from './components/Chat';
-import { SourcePanel } from './components/Sources';
-import { TenantSelector } from './components/Tenant';
-import styles from './App.module.css';
+import { useTenantStore } from '@/stores/tenantStore';
+import { useChatStore } from '@/stores/chatStore';
+import { useTenants } from '@/hooks';
+import { AppShell, Header } from '@/components/Layout';
+import { ChatPanel } from '@/components/Chat';
+import { SourcePanel } from '@/components/Sources';
 
 // Fallback tenants when API is unavailable (graceful degradation)
 // TODO: For production, consider disabling the selector on error instead of falling back
@@ -31,26 +30,18 @@ function App() {
   };
 
   return (
-    <div className={styles.app}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>DocHound</h1>
-        <p className={styles.tagline}>Sniff out answers from your technical documents</p>
-        <TenantSelector
+    <AppShell
+      header={
+        <Header
           tenants={availableTenants}
           currentTenant={currentTenant}
           onTenantChange={handleTenantChange}
           isLoading={isLoading}
         />
-      </header>
-      <div className={styles.content}>
-        <main className={styles.main}>
-          <ChatPanel currentTenantName={currentTenantName} />
-        </main>
-        <aside className={styles.sidebar}>
-          <SourcePanel />
-        </aside>
-      </div>
-    </div>
+      }
+      main={<ChatPanel currentTenantName={currentTenantName} />}
+      sidebar={<SourcePanel />}
+    />
   );
 }
 
